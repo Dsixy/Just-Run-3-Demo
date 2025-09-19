@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://x70wnfxhe0fi"]
+
+[ext_resource type="Script" path="res://script/UI/relation_map/block.gd" id="1_tanxv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qiavw"]
+bg_color = Color(0.212305, 0.212305, 0.212305, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 5
+
+[node name="Block" type="Panel"]
+custom_minimum_size = Vector2(100, 60)
+offset_right = 139.0
+offset_bottom = 72.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qiavw")
+script = ExtResource("1_tanxv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3

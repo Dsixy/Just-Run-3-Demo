@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://cs41omlfdgcjb"]
+
+[ext_resource type="PackedScene" uid="uid://bcbdcqsdxrrvd" path="res://scene/item/projectile/projectile.tscn" id="1_adfj4"]
+[ext_resource type="Script" path="res://script/item/projectile/iceball.gd" id="2_3q04e"]
+
+[sub_resource type="Gradient" id="Gradient_uhe68"]
+colors = PackedColorArray(0, 0, 0.917647, 1, 0, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a8ug5"]
+gradient = SubResource("Gradient_uhe68")
+width = 32
+height = 32
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1guxl"]
+size = Vector2(32, 32)
+
+[node name="Iceball" instance=ExtResource("1_adfj4")]
+script = ExtResource("2_3q04e")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("GradientTexture2D_a8ug5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("RectangleShape2D_1guxl")

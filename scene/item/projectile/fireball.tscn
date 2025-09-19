@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://bvd2vvy1av4u3"]
+
+[ext_resource type="PackedScene" uid="uid://bcbdcqsdxrrvd" path="res://scene/item/projectile/projectile.tscn" id="1_qyq6r"]
+[ext_resource type="Script" path="res://script/item/projectile/fireball.gd" id="2_fxp8k"]
+
+[sub_resource type="Gradient" id="Gradient_lmbt6"]
+colors = PackedColorArray(0.898039, 0, 0, 1, 1, 1, 0.0156863, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_huoq2"]
+gradient = SubResource("Gradient_lmbt6")
+width = 16
+height = 16
+fill_from = Vector2(0.577982, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iquke"]
+
+[node name="Fireball" instance=ExtResource("1_qyq6r")]
+script = ExtResource("2_fxp8k")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = SubResource("GradientTexture2D_huoq2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+shape = SubResource("RectangleShape2D_iquke")

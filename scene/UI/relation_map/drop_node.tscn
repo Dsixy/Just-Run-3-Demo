@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cri0h5lv4ovcn"]
+
+[ext_resource type="Script" path="res://script/UI/relation_map/drop_node.gd" id="1_1pb2r"]
+[ext_resource type="Texture2D" uid="uid://cisexcxe876av" path="res://resource/image/UI.png" id="1_e3a26"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjldn"]
+atlas = ExtResource("1_e3a26")
+region = Rect2(0, 0, 32, 32)
+
+[node name="DropNode" type="TextureButton"]
+modulate = Color(1, 1, 0.203922, 1)
+custom_minimum_size = Vector2(10, 10)
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(16, 16)
+texture_normal = SubResource("AtlasTexture_fjldn")
+script = ExtResource("1_1pb2r")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
