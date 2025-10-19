@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://c00l2wwqj4ejx"]
+
+[ext_resource type="PackedScene" uid="uid://kqiqco5a6dgw" path="res://scene/item/projectile.tscn" id="1_380qo"]
+[ext_resource type="Script" path="res://script/item/snowball.gd" id="2_7cq44"]
+
+[sub_resource type="Gradient" id="Gradient_tdioc"]
+colors = PackedColorArray(0.610476, 0.848548, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_llmbh"]
+gradient = SubResource("Gradient_tdioc")
+width = 20
+height = 20
+
+[sub_resource type="Curve" id="Curve_c2m23"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.973333, 0.043956), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_so1h4"]
+curve = SubResource("Curve_c2m23")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bnp5c"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_so1h4")
+
+[sub_resource type="Gradient" id="Gradient_ro1cb"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tpa0m"]
+gradient = SubResource("Gradient_ro1cb")
+width = 4
+height = 4
+
+[node name="Snowball" instance=ExtResource("1_380qo")]
+script = ExtResource("2_7cq44")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_llmbh")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Graphic" index="1"]
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_bnp5c")
+texture = SubResource("GradientTexture2D_tpa0m")

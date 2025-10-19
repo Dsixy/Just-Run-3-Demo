@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1rnyfarulebj"]
+
+[ext_resource type="Script" path="res://script/character/base_character.gd" id="1_nlnpc"]
+
+[sub_resource type="Gradient" id="Gradient_w1afv"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rm2sj"]
+gradient = SubResource("Gradient_w1afv")
+
+[node name="BaseCharacter" type="CharacterBody2D"]
+script = ExtResource("1_nlnpc")
+
+[node name="Graphic" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic"]
+texture = SubResource("GradientTexture2D_rm2sj")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu7u8j2cscvyn"]
+
+[ext_resource type="Script" path="res://script/UI/spells/drawer.gd" id="1_3q6bx"]
+
+[node name="Drawer" type="Label"]
+offset_right = 77.0
+offset_bottom = 38.0
+script = ExtResource("1_3q6bx")
