@@ -9,13 +9,15 @@ var value:
 	set(v):
 		_value = v
 		label.text = "{0}: {1}".format([attrName, _value])
-		changeS.emit(attrName, v)
+		changeS.emit(attr, v)
 
+var attr: String = ""
 var attrName: String = ""
 
 signal changeS(n: String, v)
 
-func set_properties(n: String, min_val: float, max_val: float, step: float) -> void:
+func set_properties(a: String, n: String, min_val: float, max_val: float, step: float) -> void:
+	self.attr = a
 	self.attrName = n
 	self.slider.min_value = min_val
 	self.slider.max_value = max_val

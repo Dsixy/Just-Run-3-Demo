@@ -20,8 +20,18 @@ func cast() -> BaseSpell:
 	
 	return spell
 	
+func copy():
+	var subs = []
+	for subNode in self.subNodes:
+		if subNode:
+			subs.append(subNode.copy())
+		else:
+			subs.append(null)
+	return SpellTreeNode.new(self.spellClass, self.extraParams, subs)
+	
 func show():
 	print('(', spellClass.spellName)
+	print(self.extraParams)
 	for sub in subNodes:
 		if sub:
 			sub.show()

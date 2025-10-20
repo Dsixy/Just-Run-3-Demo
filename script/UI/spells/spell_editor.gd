@@ -6,7 +6,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for spellClass in [FireballSpell, LinearTrajSpell]:
+	for spellClass in [FireballSpell, LinearTrajSpell, OrbitWrapperSpell]:
 		var button = spellButtonScene.instantiate()
 		buttonContainer.add_child(button)
 		button.set_properties(spellClass)

@@ -4,15 +4,17 @@ static var spellName := "火球魔法"
 static var description := ""
 static var keys = ["Projection"]
 static var filter: Callable = func(spellClass):
-	return "ProjectionTraj" in spellClass
+	return "ProjectionTraj" in spellClass.keys
 	
-static var boardParams = [
-	["轨迹", filter],
-]
+static var boardParams = {
+	"trajSpell": ["轨迹", filter],
+}
 
 const fireballScene: PackedScene = preload("res://scene/item/fireball.tscn")
 var spellTree: SpellTreeNode
 var subSpells: Array
+
+var trajSpell: BaseSpell
 
 var extraCritDamage: float = 0.0
 
@@ -23,8 +25,11 @@ func _init(spells: Array, spell_tree: SpellTreeNode):
 	self.spellTree = spell_tree
 	self.projectile = fireballScene.instantiate()
 	
-	if self.subSpells != []:
-		self.projectile.traj_func = self.subSpells[0].traj_func
+	self.process_extra_params(self.spellTree.extraParams)
+	
+	self.trajSpell = subSpells[0]
+	if self.trajSpell:
+		self.projectile.traj_func = self.trajSpell.traj_func
 	
 func apply(attr_dict: Dictionary):
 	self.attrDict = attr_dict
@@ -37,15 +42,29 @@ func apply(attr_dict: Dictionary):
 		Damage.DamageType.Fire
 	)
 	var overrideDict = {
-		"damage": damage
+		"damage": damage,
+		"position": attr_dict["position"],
+		"rotation": (attr_dict["target_position"] - attr_dict["position"]).angle()
 	}
+	attr_dict["mainscene"].add_child(self.projectile)
 	self.projectile.override(overrideDict)
 	
-	attr_dict["mainscene"].add_child(self.projectile)
-	self.projectile.global_position = attr_dict["position"]
-	
-	for spell: BaseSpell in self.subSpells:
-		spell.apply(attr_dict)
+	if self.trajSpell:
+		self.trajSpell.apply(attr_dict)
 		
 func calculate_damage() -> float:
-	return 10 + 0.5 * self.attrDict["player_attr_info"].spellPower
+	return 20 + 0.5 * self.attrDict["player_attr_info"].spellPower
+	
+func compute_cost_and_time():
+	var cost := 5
+	var cast_time := 0.5
+	var arr := []
+	
+	if self.trajSpell:
+		arr = self.trajSpell.compute_cost_and_time()
+		cost += arr[0]
+		cast_time += arr[1]
+		
+	self.manaCost = cost
+	self.castTime = cast_time
+	return [cost, cast_time]

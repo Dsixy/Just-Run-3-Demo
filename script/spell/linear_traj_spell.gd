@@ -2,22 +2,26 @@ class_name LinearTrajSpell extends BaseSpell
 
 static var spellName := "线性轨迹"
 static var description := "用以修饰【投射物】的轨迹"
-static var keys = ["ProjectionTraj"]
+static var keys = ["投射物轨迹"]
 	
-static var boardParams = [
-	["初始速度", 100, 600, 100]
-]
+static var boardParams = {
+	"initSpeed": ["初始速度", 100, 600, 100]
+}
 
 var spellTree: SpellTreeNode
 var subSpells: Array
 var traj_func: Callable
 
+var initSpeed: int = 200
 var speed: int = 200
 var velocity: Vector2 = Vector2.ONE
 
 func _init(spells: Array, spell_tree: SpellTreeNode):
 	self.subSpells = spells
 	self.spellTree = spell_tree
+	
+	self.process_extra_params(self.spellTree.extraParams)
+	self.speed = initSpeed
 	self.traj_func = func(delta, projectile: Node2D):
 		projectile.position += velocity * speed * delta
 	

@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://kgh1511b1r4l"]
+
+[ext_resource type="PackedScene" uid="uid://dy28t44oiaynx" path="res://scene/enemy/base_enemy.tscn" id="1_vj5m4"]
+[ext_resource type="Script" path="res://script/enemy/duang_duang_worm.gd" id="2_fs36s"]
+
+[sub_resource type="Gradient" id="Gradient_g2kp8"]
+colors = PackedColorArray(0.623529, 0.576471, 0, 1, 0.396078, 1, 0.266667, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0pisv"]
+gradient = SubResource("Gradient_g2kp8")
+fill_from = Vector2(0.357798, 0.665138)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hme2e"]
+radius = 25.4951
+
+[node name="DuangDuangWorm" instance=ExtResource("1_vj5m4")]
+script = ExtResource("2_fs36s")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_0pisv")
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_hme2e")

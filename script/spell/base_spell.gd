@@ -12,3 +12,8 @@ func apply(attrDict: Dictionary):
 	
 func compute_cost_and_time():
 	pass
+
+func process_extra_params(params: Dictionary):
+	for key in params:
+		self.set(key, params[key])
+

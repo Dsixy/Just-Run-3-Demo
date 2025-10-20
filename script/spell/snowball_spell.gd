@@ -2,9 +2,9 @@ class_name SnowballSpell extends BaseSpell
 
 static var spellName := "雪球魔法"
 static var description := ""
-static var keys = ["Projection"]
+static var keys = ["投射物"]
 static var filter: Callable = func(spellClass):
-	return "ProjectionTraj" in spellClass.keys
+	return "投射物轨迹" in spellClass.keys
 	
 static var boardParams = [
 	["轨迹", filter],
@@ -13,6 +13,8 @@ static var boardParams = [
 const snowballScene: PackedScene = preload("res://scene/item/snowball.tscn")
 var spellTree: SpellTreeNode
 var subSpells: Array
+
+var trajSpell: BaseSpell
 
 var extraCritDamage: float = 0.0
 
@@ -23,8 +25,11 @@ func _init(spells: Array, spell_tree: SpellTreeNode):
 	self.spellTree = spell_tree
 	self.projectile = snowballScene.instantiate()
 	
-	if self.subSpells[0]:
-		self.projectile.traj_func = self.subSpells[0].traj_func
+	self.process_extra_params(self.spellTree.extraParams)
+	
+	self.trajSpell = subSpells[0]
+	if self.trajSpell:
+		self.projectile.traj_func = self.trajSpell.traj_func
 	
 func apply(attr_dict: Dictionary):
 	self.attrDict = attr_dict
@@ -44,8 +49,8 @@ func apply(attr_dict: Dictionary):
 	attr_dict["mainscene"].add_child(self.projectile)
 	self.projectile.override(overrideDict)
 	
-	for spell: BaseSpell in self.subSpells:
-		spell.apply(attr_dict)
+	if self.trajSpell:
+		self.trajSpell.apply(attr_dict)
 		
 func calculate_damage() -> float:
 	return 10 + 0.3 * self.attrDict["player_attr_info"].spellPower

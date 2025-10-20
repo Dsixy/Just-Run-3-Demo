@@ -15,30 +15,31 @@ func override(spell_class):
 	self.spellClass = spell_class
 	self.treeNode = SpellTreeNode.new(self.spellClass)
 
-	for boardParam in self.spellClass.boardParams:
+	for key in self.spellClass.boardParams:
 		var subUI: Control
+		var boardParam = self.spellClass.boardParams[key]
 		match typeof(boardParam[1]):
 			TYPE_CALLABLE:
 				subUI = drawerScene.instantiate()
 				add_child(subUI)
 				# name, filter
-				subUI.set_properties(boardParam[0], boardParam[1])
+				subUI.set_properties(key, boardParam[0], boardParam[1])
 				
 				set_slot_enabled_left(idx, true)
 				inputFields[idx] = subUI
-				params[boardParam[0]] = null
+				params[key] = null
 			TYPE_INT:
 				subUI = slideScene.instantiate()
 				add_child(subUI)
 				# name, min, max, step
-				subUI.set_properties(boardParam[0], boardParam[1], boardParam[2], boardParam[3])
-				params[boardParam[0]] = boardParam[1]
+				subUI.set_properties(key, boardParam[0], boardParam[1], boardParam[2], boardParam[3])
+				params[key] = boardParam[1]
 			TYPE_FLOAT:
 				subUI = slideScene.instantiate()
 				add_child(subUI)
 				# name, min, max, step
-				subUI.set_properties(boardParam[0], boardParam[1], boardParam[2], boardParam[3])
-				params[boardParam[0]] = boardParam[1]
+				subUI.set_properties(key, boardParam[0], boardParam[1], boardParam[2], boardParam[3])
+				params[key] = boardParam[1]
 			TYPE_STRING:
 				print("string")
 			_:
@@ -50,7 +51,7 @@ func override(spell_class):
 	self.compile()
 	self.update_info()
 	
-	self.title = self.spellClass.spellName
+	self.title = self.spellClass.spellName + "【"+ "】【".join(self.spellClass.keys) + "】"
 	
 func on_sub_value_changed(n: String, v):
 	if n in params:

@@ -41,7 +41,6 @@ func _input(event):
 	direction = direction.normalized()
 	
 	if Input.is_action_just_pressed("Apply"):
-		GameInfo.spells[0].show()
 		apply_spell(GameInfo.spells[0])
 		pass
 	
@@ -49,6 +48,7 @@ func apply_spell(spellTree: SpellTreeNode):
 	if spellTree == null:
 		return
 		
+	spellTree.show()
 	var spell = spellTree.cast()
 	var dict = {
 		"mainscene": get_parent(),
