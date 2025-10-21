@@ -1,7 +1,5 @@
 extends BaseEnemy
 
-@onready var hitArea = $Feature/Hitbox
-
 class MoveState extends State:
 	func physics_process(delta):
 		if self.stateOwner.target:
@@ -13,14 +11,13 @@ class MoveState extends State:
 		
 	func process(delta):
 		if self.stateOwner.target and self.stateOwner.global_position.distance_to(self.stateOwner.target.global_position) <= 300:
-			transiteStateS.emit(LeapState.new(self.stateOwner))
+			transiteStateS.emit(AttackState.new(self.stateOwner))
 		
-class LeapState extends State:
+class AttackState extends State:
 	var leap_speed := 0.0
 	var direction := Vector2.ZERO
 
 	func enter():
-		self.stateOwner.hitArea.monitoring = true
 		direction = (self.stateOwner.target.global_position - self.stateOwner.global_position).normalized()
 		var tween = self.stateOwner.get_tree().create_tween()
 		tween.tween_property(self, "leap_speed", 0, 0.7)
@@ -31,35 +28,21 @@ class LeapState extends State:
 		await tween.finished
 		if not is_instance_valid(self.stateOwner):
 			return
-			
-		if self.stateOwner.global_position.distance_to(self.stateOwner.target.global_position) <= 300:
-			transiteStateS.emit(LeapState.new(self.stateOwner))
-		else:
-			transiteStateS.emit(MoveState.new(self.stateOwner))
 
 	func physics_process(delta):
 		self.stateOwner.velocity = direction * leap_speed
 		self.stateOwner.move_and_slide()
 		
-	func exit():
-		self.stateOwner.hitArea.monitoring = false
+class FrozenState extends State:
+	pass
 	
-var leapDamage: Damage
-
 func _init():
 	super._init()
-	self.attr.maxHP = 1000
-	self.state.HP = 1000
-	self.leapDamage = Damage.new(15, 0, 0, 0, "Blunt")
+	self.attr.maxHP = 50
+	self.state.HP = 50
 	
 func set_target(t: Node2D):
 	self.target = t
 	
 func _ready():
 	self.transite_to_state(MoveState.new(self))
-
-func _on_hitbox_area_entered(area):
-	print(area.get_groups())
-	if area.is_in_group(self.targetGroup):
-		var target = area.get_parent()
-		target.take_damage(self.leapDamage)

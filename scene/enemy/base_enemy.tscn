@@ -10,10 +10,12 @@ script = ExtResource("1_fbcw8")
 
 [node name="Navigation" type="Node2D" parent="."]
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." groups=["enemy"]]
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-[node name="FSM" type="Node2D" parent="."]
+[node name="Feature" type="Node2D" parent="."]

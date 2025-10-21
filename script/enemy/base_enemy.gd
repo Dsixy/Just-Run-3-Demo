@@ -29,6 +29,7 @@ var attr: EnemyAttr
 var state: EnemyState
 var currentState: State
 
+var targetGroup := "player"
 var target: Node2D
 
 func _init():
@@ -49,3 +50,14 @@ func transite_to_state(s: State):
 	self.currentState = s
 	self.currentState.transiteStateS.connect(transite_to_state)
 	self.currentState.enter()
+
+func take_damage(damage: Damage):
+	var final_damage_amount = damage.finalDamage * self.attr.damageMultiplier[damage.type]
+	FightInfoManager.show_damage_label(damage, global_position + Vector2.UP * 50)
+	self.state.HP -= final_damage_amount
+	
+	if self.state.HP <= 0:
+		self.death()
+		
+func death():
+	queue_free()

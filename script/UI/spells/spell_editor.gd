@@ -6,7 +6,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for spellClass in [FireballSpell, LinearTrajSpell, OrbitWrapperSpell]:
+	for spellClass in GameInfo.availableSpell:
 		var button = spellButtonScene.instantiate()
 		buttonContainer.add_child(button)
 		button.set_properties(spellClass)
@@ -41,7 +41,6 @@ func _on_spell_button_pressed(spell_class):
 	var board = preload("res://scene/UI/spells/spell_board.tscn").instantiate()
 	editor.add_child(board)
 	board.override(spell_class)
-
 
 func _on_graph_edit_delete_nodes_request(nodes):
 	for nodeName in nodes:

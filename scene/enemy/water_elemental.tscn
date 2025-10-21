@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd14t4aphr8rn"]
+
+[ext_resource type="PackedScene" uid="uid://dy28t44oiaynx" path="res://scene/enemy/base_enemy.tscn" id="1_l2fsd"]
+[ext_resource type="Script" path="res://script/enemy/water_elemental.gd" id="2_jlg08"]
+
+[node name="WaterElemental" instance=ExtResource("1_l2fsd")]
+script = ExtResource("2_jlg08")

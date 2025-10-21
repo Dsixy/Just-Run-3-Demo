@@ -6,9 +6,9 @@ static var keys = ["投射物"]
 static var filter: Callable = func(spellClass):
 	return "投射物轨迹" in spellClass.keys
 	
-static var boardParams = [
-	["轨迹", filter],
-]
+static var boardParams = {
+	"trajSpell": ["轨迹", filter],
+}
 
 const snowballScene: PackedScene = preload("res://scene/item/snowball.tscn")
 var spellTree: SpellTreeNode
@@ -39,7 +39,7 @@ func apply(attr_dict: Dictionary):
 		0,
 		attr_dict["player_attr_info"].critRate,
 		attr_dict["player_attr_info"].critDamage + self.extraCritDamage,
-		Damage.DamageType.Fire
+		"Frost"
 	)
 	var overrideDict = {
 		"damage": damage,

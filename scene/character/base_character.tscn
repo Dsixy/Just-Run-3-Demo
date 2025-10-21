@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1rnyfarulebj"]
+[gd_scene load_steps=5 format=3 uid="uid://d1rnyfarulebj"]
 
 [ext_resource type="Script" path="res://script/character/base_character.gd" id="1_nlnpc"]
 
@@ -6,6 +6,9 @@
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rm2sj"]
 gradient = SubResource("Gradient_w1afv")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64n74"]
+size = Vector2(48, 48)
 
 [node name="BaseCharacter" type="CharacterBody2D"]
 script = ExtResource("1_nlnpc")
@@ -15,8 +18,22 @@ script = ExtResource("1_nlnpc")
 [node name="Sprite2D" type="Sprite2D" parent="Graphic"]
 texture = SubResource("GradientTexture2D_rm2sj")
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." groups=["player"]]
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_64n74")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Node" type="Node" parent="."]
+
+[node name="ManaTimer" type="Timer" parent="Node"]
+autostart = true
+
+[node name="CastTimer" type="Timer" parent="Node"]
+one_shot = true
+
+[connection signal="timeout" from="Node/ManaTimer" to="." method="_on_mana_timer_timeout"]
+[connection signal="timeout" from="Node/CastTimer" to="." method="_on_cast_timer_timeout"]

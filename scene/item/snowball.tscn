@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c00l2wwqj4ejx"]
+[gd_scene load_steps=11 format=3 uid="uid://c00l2wwqj4ejx"]
 
 [ext_resource type="PackedScene" uid="uid://kqiqco5a6dgw" path="res://scene/item/projectile.tscn" id="1_380qo"]
 [ext_resource type="Script" path="res://script/item/snowball.gd" id="2_7cq44"]
@@ -34,6 +34,8 @@ gradient = SubResource("Gradient_ro1cb")
 width = 4
 height = 4
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eo30a"]
+
 [node name="Snowball" instance=ExtResource("1_380qo")]
 script = ExtResource("2_7cq44")
 
@@ -44,3 +46,6 @@ texture = SubResource("GradientTexture2D_llmbh")
 amount = 32
 process_material = SubResource("ParticleProcessMaterial_bnp5c")
 texture = SubResource("GradientTexture2D_tpa0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("RectangleShape2D_eo30a")

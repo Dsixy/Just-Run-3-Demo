@@ -10,7 +10,7 @@ func _ready():
 	add_child(enemy)
 	enemy.global_position = Vector2(1000, 1100)
 	enemy.set_target($BaseCharacter)
-	print($BaseCharacter)
+	$PlayerStatUI.set_state_owner($BaseCharacter)
 	
 func _input(event):
 	if Input.is_action_just_pressed("EditSpell"):

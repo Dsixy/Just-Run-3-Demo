@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4lxvupwgd3ri"]
+
+[ext_resource type="FontFile" uid="uid://b3wqwbioij42k" path="res://resources/fonts/OCRASTD.OTF" id="1_d8upr"]
+[ext_resource type="Script" path="res://script/UI/fight/damage_label.gd" id="1_laiyq"]
+
+[node name="DamageLabel" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_d8upr")
+theme_override_font_sizes/font_size = 25
+text = "10"
+script = ExtResource("1_laiyq")

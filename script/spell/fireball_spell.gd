@@ -39,7 +39,7 @@ func apply(attr_dict: Dictionary):
 		0,
 		attr_dict["player_attr_info"].critRate,
 		attr_dict["player_attr_info"].critDamage + self.extraCritDamage,
-		Damage.DamageType.Fire
+		"Fire"
 	)
 	var overrideDict = {
 		"damage": damage,

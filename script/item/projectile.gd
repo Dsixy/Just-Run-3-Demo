@@ -5,6 +5,7 @@ var traj_func: Callable = func(delta: float, node):
 	
 var timer: float
 var duration: float
+var targetGroup: String = "enemy"
 
 var damage: Damage
 
@@ -32,4 +33,9 @@ func delete():
 	queue_free()
 	
 func _on_area_2d_area_entered(area):
-	pass # Replace with function body.
+	if area.is_in_group(self.targetGroup):
+		var target = area.get_parent()
+		target.take_damage(self.damage)
+		
+		emit_signal("hitS")
+		delete()
