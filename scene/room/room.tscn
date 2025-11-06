@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1pf2qwrvdiw"]
+
+[ext_resource type="Script" path="res://script/room/room.gd" id="1_m1uks"]
+[ext_resource type="TileSet" uid="uid://36hqo1tingp3" path="res://resources/tileset/test_floor.tres" id="2_5fytw"]
+[ext_resource type="TileSet" uid="uid://dxkh2dommufmo" path="res://resources/tileset/test_wall.tres" id="3_54knl"]
+
+[node name="BaseRoom" type="Node2D"]
+script = ExtResource("1_m1uks")
+roomSize = Vector2(30, 16)
+
+[node name="Floor" type="TileMap" parent="."]
+tile_set = ExtResource("2_5fytw")
+format = 2
+
+[node name="Wall" type="TileMap" parent="." groups=["wall"]]
+z_index = 1
+tile_set = ExtResource("3_54knl")
+format = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

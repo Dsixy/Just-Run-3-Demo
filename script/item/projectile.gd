@@ -32,7 +32,14 @@ func delete():
 	emit_signal("deleteS")
 	queue_free()
 	
-func _on_area_2d_area_entered(area):
+func _on_hitbox_body_entered(body):
+	if body.is_in_group("wall"):
+		var room = body.get_parent()
+		room.take_damage(global_position, damage)
+		emit_signal("hitS")
+		delete()
+
+func _on_hitbox_area_entered(area):
 	if area.is_in_group(self.targetGroup):
 		var target = area.get_parent()
 		target.take_damage(self.damage)

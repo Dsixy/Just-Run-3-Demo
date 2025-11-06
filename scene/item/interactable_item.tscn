@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://drbhposjl5ll"]
+
+[ext_resource type="Script" path="res://script/item/interactable_item.gd" id="1_lj8rl"]
+
+[node name="InteractableItem" type="Node2D"]
+script = ExtResource("1_lj8rl")
+
+[node name="Graphic" type="Node2D" parent="."]
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4npbo6yf7ows"]
+
+[ext_resource type="Script" path="res://script/buff/haste_buff.gd" id="1_g10in"]
+
+[node name="HasteBuff" type="Node"]
+script = ExtResource("1_g10in")
+ID = 8
+buffName = "加速"

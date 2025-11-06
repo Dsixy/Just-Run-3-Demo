@@ -5,7 +5,7 @@ static var description := "用以修饰【投射物】的轨迹"
 static var keys = ["投射物轨迹"]
 	
 static var boardParams = {
-	"initSpeed": ["初始速度", 100, 600, 100]
+	"initSpeed": ["初始速度", 100, 1500, 200]
 }
 
 var spellTree: SpellTreeNode

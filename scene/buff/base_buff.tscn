@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr30dmdv6pxqy"]
+
+[ext_resource type="Script" path="res://script/buff/base_buff.gd" id="1_pko6p"]
+
+[node name="BaseBuff" type="Node"]
+script = ExtResource("1_pko6p")

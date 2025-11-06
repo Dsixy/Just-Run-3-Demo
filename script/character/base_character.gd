@@ -2,7 +2,7 @@ class_name BaseCharacter extends CharacterBody2D
 
 class CharacterAttr:
 	var maxHP: int = 100
-	var speed: int = 250
+	var speed: int = 450
 	var critRate: float = 0.05
 	var spellPower: int = 10
 	var maxMP: int = 250
@@ -24,10 +24,15 @@ var attr: CharacterAttr
 var state: CharacterState
 var direction: Vector2
 
-var spells = []
+var spells = [null, null]
+var currentSpellIdx: int = 0
 var canApplySpell: bool = true
+var spellManager := SpellManager.new()
 @onready var coolDownTimer = $Node/CastTimer
+@onready var buffManager = $BuffManager
 signal stateChangeS
+
+@onready var interactArea = $InteractArea
 
 func _init():
 	self.attr = CharacterAttr.new()
@@ -46,9 +51,19 @@ func _input(event):
 		
 	direction = direction.normalized()
 	
+	if Input.is_action_just_pressed("NextSpell"):
+		self.currentSpellIdx += 1
+		emit_signal("stateChangeS")
+	elif Input.is_action_just_pressed("PreviousSpell"):
+		self.currentSpellIdx -= 1
+		emit_signal("stateChangeS")
+	self.currentSpellIdx = clamp(self.currentSpellIdx, 0, 1)
+	
 	if Input.is_action_pressed("Apply") and self.canApplySpell:
-		apply_spell(GameInfo.spells[0])
-		pass
+		apply_spell(self.spells[self.currentSpellIdx])
+		
+	if Input.is_action_just_pressed("Interact"):
+		interact()
 	
 func apply_spell(spellTree: SpellTreeNode):
 	if spellTree == null:
@@ -89,15 +104,27 @@ func take_damage(damage: Damage):
 	if self.state.HP <= 0:
 		self.death()
 
+func interact():
+	var items = interactArea.get_overlapping_areas()
+	for itemA in items:
+		var item = itemA.get_parent()
+		if is_instance_of(item, InteractableItem):
+			item.activate(self)
+	
 func death():
 	set_process(false)
 	set_physics_process(false)
 	print("You Loss")
-
+	
+func add_buff(buff: BaseBuff):
+	self.buffManager.add_buff(buff)
+	
+func set_spell(spell: SpellTreeNode):
+	self.spells[self.currentSpellIdx] = spell
+	
 func _on_mana_timer_timeout():
 	self.state.MP = min(self.attr.maxMP, self.state.MP + self.attr.inspiration)
 	emit_signal("stateChangeS")
-
 
 func _on_cast_timer_timeout():
 	self.canApplySpell = true

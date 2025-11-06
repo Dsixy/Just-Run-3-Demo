@@ -28,9 +28,12 @@ class EnemyState:
 var attr: EnemyAttr
 var state: EnemyState
 var currentState: State
+@onready var buffManager = $BuffManager
 
 var targetGroup := "player"
 var target: Node2D
+
+signal deathS(node: BaseEnemy)
 
 func _init():
 	self.attr = EnemyAttr.new()
@@ -50,8 +53,12 @@ func transite_to_state(s: State):
 	self.currentState = s
 	self.currentState.transiteStateS.connect(transite_to_state)
 	self.currentState.enter()
+	
+func activate():
+	pass
 
 func take_damage(damage: Damage):
+	damage = self.buffManager.process_damage(damage)
 	var final_damage_amount = damage.finalDamage * self.attr.damageMultiplier[damage.type]
 	FightInfoManager.show_damage_label(damage, global_position + Vector2.UP * 50)
 	self.state.HP -= final_damage_amount
@@ -60,4 +67,8 @@ func take_damage(damage: Damage):
 		self.death()
 		
 func death():
+	deathS.emit(self)
 	queue_free()
+	
+func add_buff(buff: BaseBuff):
+	self.buffManager.add_buff(buff)

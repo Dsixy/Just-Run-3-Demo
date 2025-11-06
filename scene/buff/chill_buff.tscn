@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://tcwvmm5u4ht4"]
+
+[ext_resource type="PackedScene" uid="uid://dr30dmdv6pxqy" path="res://scene/buff/base_buff.tscn" id="1_5kkcj"]
+[ext_resource type="Script" path="res://script/buff/chill_buff.gd" id="2_th8xj"]
+
+[node name="ChillBuff" instance=ExtResource("1_5kkcj")]
+script = ExtResource("2_th8xj")
+buffName = "冰冻"

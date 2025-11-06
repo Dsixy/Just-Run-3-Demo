@@ -5,6 +5,7 @@ extends Control
 @onready var MPBar = $StateBoard/MarginContainer/VBoxContainer/MPBar
 @onready var MPBarLabel = $StateBoard/MarginContainer/VBoxContainer/MPBar/Label
 
+@onready var test = $StateBoard/MarginContainer/VBoxContainer/HBoxContainer/GPUParticles2D
 var stateOwner: BaseCharacter
 
 func set_state_owner(p: BaseCharacter):
@@ -19,3 +20,4 @@ func update_info():
 	MPBar.max_value = stateOwner.attr.maxMP
 	MPBar.value = stateOwner.state.MP
 	MPBarLabel.text = "{0}/{1}".format([stateOwner.state.MP, stateOwner.attr.maxMP])
+	test.position.x = 32 + 79 * stateOwner.currentSpellIdx 

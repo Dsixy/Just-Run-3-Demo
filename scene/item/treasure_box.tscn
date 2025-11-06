@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dus3p3vv3wq1g"]
+
+[ext_resource type="Script" path="res://script/item/treasure_box.gd" id="1_nkej5"]
+
+[sub_resource type="Gradient" id="Gradient_8ot2j"]
+colors = PackedColorArray(0.99523, 0.780622, 0.571191, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mnjlq"]
+gradient = SubResource("Gradient_8ot2j")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5bsnv"]
+size = Vector2(128, 128)
+
+[node name="TreasureBox" type="Node2D"]
+z_index = 1
+script = ExtResource("1_nkej5")
+
+[node name="Graphic" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic"]
+texture = SubResource("GradientTexture2D_mnjlq")
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_5bsnv")

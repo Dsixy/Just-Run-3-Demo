@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1rnyfarulebj"]
+[gd_scene load_steps=8 format=3 uid="uid://d1rnyfarulebj"]
 
 [ext_resource type="Script" path="res://script/character/base_character.gd" id="1_nlnpc"]
+[ext_resource type="PackedScene" uid="uid://cub5man10c4ft" path="res://scene/buff/buff_manager.tscn" id="2_ajnsu"]
 
 [sub_resource type="Gradient" id="Gradient_w1afv"]
 
@@ -10,7 +11,15 @@ gradient = SubResource("Gradient_w1afv")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_64n74"]
 size = Vector2(48, 48)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sj8g1"]
+radius = 32.9848
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8ha2o"]
+size = Vector2(128, 128)
+
 [node name="BaseCharacter" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 0
 script = ExtResource("1_nlnpc")
 
 [node name="Graphic" type="Node2D" parent="."]
@@ -26,6 +35,7 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_64n74")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_sj8g1")
 
 [node name="Node" type="Node" parent="."]
 
@@ -34,6 +44,18 @@ autostart = true
 
 [node name="CastTimer" type="Timer" parent="Node"]
 one_shot = true
+
+[node name="BuffManager" parent="." instance=ExtResource("2_ajnsu")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_8ha2o")
 
 [connection signal="timeout" from="Node/ManaTimer" to="." method="_on_mana_timer_timeout"]
 [connection signal="timeout" from="Node/CastTimer" to="." method="_on_cast_timer_timeout"]

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dufbu8gjf7vc4"]
+
+[ext_resource type="Script" path="res://script/buff/frozen_buff.gd" id="1_5vscd"]
+
+[node name="FrozenBuff" type="Node"]
+script = ExtResource("1_5vscd")
+ID = 1
+buffName = "冻结"

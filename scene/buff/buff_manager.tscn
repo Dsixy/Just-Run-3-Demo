@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cub5man10c4ft"]
+
+[ext_resource type="Script" path="res://script/buff/buff_manager.gd" id="1_etvmy"]
+
+[node name="BuffManager" type="Node"]
+script = ExtResource("1_etvmy")

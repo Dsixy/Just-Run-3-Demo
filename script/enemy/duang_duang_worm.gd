@@ -48,18 +48,17 @@ var leapDamage: Damage
 
 func _init():
 	super._init()
-	self.attr.maxHP = 1000
-	self.state.HP = 1000
+	self.attr.maxHP = 250
+	self.state.HP = self.attr.maxHP
 	self.leapDamage = Damage.new(15, 0, 0, 0, "Blunt")
 	
 func set_target(t: Node2D):
 	self.target = t
 	
-func _ready():
+func activate():
 	self.transite_to_state(MoveState.new(self))
 
 func _on_hitbox_area_entered(area):
-	print(area.get_groups())
 	if area.is_in_group(self.targetGroup):
 		var target = area.get_parent()
 		target.take_damage(self.leapDamage)

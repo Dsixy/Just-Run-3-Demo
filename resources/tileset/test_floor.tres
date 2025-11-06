@@ -1,0 +1,31 @@
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://36hqo1tingp3"]
+
+[ext_resource type="Texture2D" uid="uid://ds4un72kdgmn" path="res://resources/img/tileset.png" id="1_xv66a"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q5jn5"]
+resource_name = "floor"
+texture = ExtResource("1_xv66a")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o5nd0"]
+resource_name = "speed_up_floor"
+texture = ExtResource("1_xv66a")
+texture_region_size = Vector2i(64, 64)
+0:1/0 = 0
+0:1/0/custom_data_0 = "Haste"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p1qxu"]
+resource_name = "speed_down_floor"
+texture = ExtResource("1_xv66a")
+texture_region_size = Vector2i(64, 64)
+0:2/0 = 0
+0:2/0/custom_data_0 = "Slow"
+
+[resource]
+tile_size = Vector2i(64, 64)
+custom_data_layer_0/name = "buff"
+custom_data_layer_0/type = 4
+sources/0 = SubResource("TileSetAtlasSource_q5jn5")
+sources/1 = SubResource("TileSetAtlasSource_o5nd0")
+sources/2 = SubResource("TileSetAtlasSource_p1qxu")

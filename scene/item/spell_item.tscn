@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmnnype3ksxth"]
+
+[ext_resource type="PackedScene" uid="uid://drbhposjl5ll" path="res://scene/item/interactable_item.tscn" id="1_q0h5n"]
+[ext_resource type="Script" path="res://script/item/spell_item.gd" id="2_yyee6"]
+
+[sub_resource type="Gradient" id="Gradient_drae5"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dkls1"]
+gradient = SubResource("Gradient_drae5")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cnddm"]
+size = Vector2(64, 64)
+
+[node name="SpellItem" instance=ExtResource("1_q0h5n")]
+script = ExtResource("2_yyee6")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_dkls1")
+
+[node name="CollisionShape2D" parent="InteractArea" index="0"]
+shape = SubResource("RectangleShape2D_cnddm")

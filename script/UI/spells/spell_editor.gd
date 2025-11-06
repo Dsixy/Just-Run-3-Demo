@@ -4,13 +4,19 @@ extends Control
 @onready var buttonContainer = $HBoxContainer
 @onready var editor = $GraphEdit
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	for spellClass in GameInfo.availableSpell:
+var spellManager: SpellManager
+var buttons := {}
+
+
+func set_spell_manager(sm: SpellManager):
+	self.spellManager = sm
+
+	for spellClass in spellManager.spells:
 		var button = spellButtonScene.instantiate()
 		buttonContainer.add_child(button)
-		button.set_properties(spellClass)
+		button.set_properties(spellClass, spellManager.spells[spellClass])
 		button.pressS.connect(_on_spell_button_pressed)
+		buttons[spellClass] = button
 
 func update_all_board():
 	for child in editor.get_children():
@@ -38,9 +44,11 @@ func _on_graph_edit_disconnection_request(from_node, from_port, to_node, to_port
 	self.disconnect_node(from_node, from_port, to_node, to_port)
 	
 func _on_spell_button_pressed(spell_class):
-	var board = preload("res://scene/UI/spells/spell_board.tscn").instantiate()
-	editor.add_child(board)
-	board.override(spell_class)
+	if buttons[spell_class].restNum > 0:
+		var board = preload("res://scene/UI/spells/spell_board.tscn").instantiate()
+		editor.add_child(board)
+		board.override(spell_class)
+		buttons[spell_class].restNum -= 1
 
 func _on_graph_edit_delete_nodes_request(nodes):
 	for nodeName in nodes:
@@ -49,6 +57,9 @@ func _on_graph_edit_delete_nodes_request(nodes):
 				self.disconnect_node(conn.from_node, conn.from_port, conn.to_node, conn.to_port)
 				
 		var node = editor.get_node(NodePath(nodeName))
+		var spell_class = node.spellClass
+		
+		buttons[spell_class].restNum += 1
 		node.queue_free()
 	
 func disconnect_node(from_node, from_port, to_node, to_port):
@@ -67,7 +78,5 @@ func close_board():
 			targetBoard = board
 			break
 			
-	GameInfo.spells[0] = targetBoard.treeNode
-	GameInfo.spells[0].show()
-	queue_free()
+	return targetBoard.treeNode
 	

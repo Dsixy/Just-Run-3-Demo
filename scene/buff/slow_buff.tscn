@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cok2fchjyxg1n"]
+
+[ext_resource type="Script" path="res://script/buff/slow_buff.gd" id="1_e3aje"]
+
+[node name="SlowBuff" type="Node"]
+script = ExtResource("1_e3aje")
+ID = 7
+buffName = "减速"

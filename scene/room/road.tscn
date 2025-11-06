@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch8rg1tte4bkj"]
+
+[ext_resource type="TileSet" uid="uid://dxkh2dommufmo" path="res://resources/tileset/test_wall.tres" id="1_ncwhf"]
+[ext_resource type="Script" path="res://script/room/road.gd" id="1_yvciy"]
+[ext_resource type="TileSet" uid="uid://36hqo1tingp3" path="res://resources/tileset/test_floor.tres" id="3_ky1a4"]
+
+[node name="Road" type="Node2D"]
+script = ExtResource("1_yvciy")
+
+[node name="Floor" type="TileMap" parent="."]
+tile_set = ExtResource("3_ky1a4")
+format = 2
+
+[node name="Wall" type="TileMap" parent="."]
+z_index = 1
+tile_set = ExtResource("1_ncwhf")
+format = 2
