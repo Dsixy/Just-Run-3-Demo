@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://fpmgo5sdvtha"]
+
+[ext_resource type="PackedScene" uid="uid://dy28t44oiaynx" path="res://scene/enemy/base_enemy.tscn" id="1_g67p7"]
+[ext_resource type="Script" path="res://script/enemy/bloverfly.gd" id="2_nlcfb"]
+
+[node name="Bloverfly" instance=ExtResource("1_g67p7")]
+script = ExtResource("2_nlcfb")

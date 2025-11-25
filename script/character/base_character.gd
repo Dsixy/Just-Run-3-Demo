@@ -6,7 +6,7 @@ class CharacterAttr:
 	var critRate: float = 0.05
 	var spellPower: int = 10
 	var maxMP: int = 250
-	var inspiration: float = 4.0
+	var inspiration: float = 100.0
 	var castSpeedModifier: float = 0.0
 	var prosperity: float = 0.0
 	var magicPenetration: float = 0.0
@@ -24,8 +24,6 @@ var attr: CharacterAttr
 var state: CharacterState
 var direction: Vector2
 
-var spells = [null, null]
-var currentSpellIdx: int = 0
 var canApplySpell: bool = true
 var spellManager := SpellManager.new()
 @onready var coolDownTimer = $Node/CastTimer
@@ -52,24 +50,22 @@ func _input(event):
 	direction = direction.normalized()
 	
 	if Input.is_action_just_pressed("NextSpell"):
-		self.currentSpellIdx += 1
+		self.spellManager.roll_current_spell_idx(false)
 		emit_signal("stateChangeS")
 	elif Input.is_action_just_pressed("PreviousSpell"):
-		self.currentSpellIdx -= 1
+		self.spellManager.roll_current_spell_idx(true)
 		emit_signal("stateChangeS")
-	self.currentSpellIdx = clamp(self.currentSpellIdx, 0, 1)
 	
 	if Input.is_action_pressed("Apply") and self.canApplySpell:
-		apply_spell(self.spells[self.currentSpellIdx])
+		apply_spell(self.spellManager.allocate_spell())
 		
 	if Input.is_action_just_pressed("Interact"):
 		interact()
 	
-func apply_spell(spellTree: SpellTreeNode):
-	if spellTree == null:
+func apply_spell(spell: BaseSpell):
+	if spell == null:
 		return
 		
-	var spell = spellTree.cast()
 	var arr = spell.compute_cost_and_time()
 	var cost = arr[0]
 	var time = arr[1]
@@ -83,7 +79,8 @@ func apply_spell(spellTree: SpellTreeNode):
 		"position": global_position,
 		"target_position": get_global_mouse_position(),
 		"player_attr_info": attr,
-		"player_state_info": state
+		"player_state_info": state,
+		"applier": self
 	}
 	spell.apply(dict)
 	self.canApplySpell = false
@@ -108,7 +105,7 @@ func interact():
 	var items = interactArea.get_overlapping_areas()
 	for itemA in items:
 		var item = itemA.get_parent()
-		if is_instance_of(item, InteractableItem):
+		if is_instance_of(item, InteractableItem) or is_instance_of(item, NPC):
 			item.activate(self)
 	
 func death():

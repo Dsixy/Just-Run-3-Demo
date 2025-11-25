@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://bk3cx7simr28p"]
+
+[ext_resource type="PackedScene" uid="uid://kqiqco5a6dgw" path="res://scene/item/projectile.tscn" id="1_odpep"]
+[ext_resource type="Script" path="res://script/item/stone_cone.gd" id="2_ymm3h"]
+
+[sub_resource type="Gradient" id="Gradient_yrsqa"]
+colors = PackedColorArray(0.411261, 0.252491, 4.81308e-08, 1, 0.717647, 0.443137, 0.313726, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rnvjs"]
+gradient = SubResource("Gradient_yrsqa")
+width = 128
+height = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s8a83"]
+size = Vector2(16, 32)
+
+[node name="StoneCone" instance=ExtResource("1_odpep")]
+script = ExtResource("2_ymm3h")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+position = Vector2(-56, 0)
+texture = SubResource("GradientTexture2D_rnvjs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("RectangleShape2D_s8a83")

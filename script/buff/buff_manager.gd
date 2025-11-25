@@ -11,11 +11,10 @@ func add_buff(buff: BaseBuff):
 		buff.removeS.connect(remove_buff)
 	else:
 		self.buffDict[buffID].stash()
+	process_buff(self.buffDict[buffID])
 
 func remove_buff(id: int):
 	if id in self.buffDict:
-		#self.buffDict[id].remove()s
-		#remove_child(self.buffDict[id])
 		self.buffDict.erase(id)
 
 func process_damage(damage: Damage):
@@ -23,3 +22,7 @@ func process_damage(damage: Damage):
 		damage = self.buffDict[buff].process_damage(damage)
 		
 	return damage
+	
+func process_buff(b: BaseBuff):
+	for buff in self.buffDict:
+		self.buffDict[buff].process_buff(b)

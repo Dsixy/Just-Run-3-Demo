@@ -12,20 +12,35 @@ var gateDirections: Array[bool] = [false, false, false, false]
 var durability: Dictionary = {}
 
 var player: BaseCharacter
-var enemies := []
 var hasActivated: bool = false
+var enemyManager: EnemyManager
 
 signal playerEnterS(room: Node2D)
 
 func _ready():
 	update_floor_navigation()
-	load_enemies()
+	enemyManager = EnemyManager.new(
+		[
+			[
+				{"name": "DuangDuangWorm", "position": Vector2(300, 300)},
+				{"name": "DuangDuangWorm", "position": Vector2(1000, 1000)},
+				{"name": "DuangDuangWorm", "position": Vector2(1000, 300)},
+			],
+			[
+				{"name": "WaterElemental", "position": Vector2(300, 300)},
+				{"name": "DuangDuangWorm", "position": Vector2(1000, 1000)},
+				{"name": "WaterElemental", "position": Vector2(1000, 300)},
+			],
+		]
+	)
+	enemyManager.currentRoom = self
+	enemyManager.enemyClearedS.connect(deactivate)
+	enemyManager.set_enemy()
 	
 func activate():
 	if not hasActivated:
 		close_gate()
-		generate_spoils(Vector2.ONE * 200)
-		activate_enemies()
+		enemyManager.activate_enemies()
 		hasActivated = true
 	
 func deactivate():
@@ -75,23 +90,6 @@ func get_gate_world_pos(dir: int) -> Vector2:
 func get_room_center_world_pos() -> Vector2:
 	return global_position + Vector2(Vector2i(roomSize / 2) * TILE_SIZE)
 
-func load_enemies():
-	var enemy = preload("res://scene/enemy/duang_duang_worm.tscn").instantiate()
-	add_child(enemy)
-	enemy.global_position = Vector2(200, 800)
-	enemy.deathS.connect(process_enemy_death)
-	enemies.append(enemy)
-	
-func activate_enemies():
-	for enemy in enemies:
-		enemy.target = player
-		enemy.activate()
-		
-func process_enemy_death(enemy: BaseEnemy):
-	enemies.erase(enemy)
-	if enemies.size() == 0:
-		deactivate()
-	
 func open_gate():
 	var used_cells = wallTileMap.get_used_cells(0)
 	for cell in used_cells:
@@ -108,7 +106,7 @@ func close_gate():
 			
 func generate_spoils(pos: Vector2):
 	var spellItem = spellItemScene.instantiate()
-	spellItem.set_spell_type(FireballSpell)
+	spellItem.set_spell_type(GameInfo.spellList.pick_random())
 	var treasureBox = treasureBoxScene.instantiate()
 	treasureBox.set_content(spellItem)
 	add_child(treasureBox)

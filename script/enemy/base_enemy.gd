@@ -30,8 +30,12 @@ var state: EnemyState
 var currentState: State
 @onready var buffManager = $BuffManager
 
+var damageScaleManager = DamageScaleManager.new()
+
 var targetGroup := "player"
 var target: Node2D
+var physicScale: float = 1
+var processScale: float = 1
 
 signal deathS(node: BaseEnemy)
 
@@ -40,12 +44,12 @@ func _init():
 	self.state = EnemyState.new(self.attr)
 	
 func _physics_process(delta):
-	if currentState:
-		currentState.physics_process(delta)
+	if currentState and physicScale > 0.1:
+		currentState.physics_process(delta * physicScale)
 		
 func _process(delta):
-	if currentState:
-		currentState.process(delta)
+	if currentState and physicScale > 0.1:
+		currentState.process(delta * processScale)
 		
 func transite_to_state(s: State):
 	if self.currentState:
@@ -59,6 +63,7 @@ func activate():
 
 func take_damage(damage: Damage):
 	damage = self.buffManager.process_damage(damage)
+	damage = self.damageScaleManager.process_damage(damage)
 	var final_damage_amount = damage.finalDamage * self.attr.damageMultiplier[damage.type]
 	FightInfoManager.show_damage_label(damage, global_position + Vector2.UP * 50)
 	self.state.HP -= final_damage_amount

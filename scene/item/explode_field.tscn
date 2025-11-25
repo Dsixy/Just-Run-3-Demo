@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cyimkaior8vkm"]
+
+[ext_resource type="PackedScene" uid="uid://bm7anqegy4bel" path="res://scene/item/field.tscn" id="1_hb6qc"]
+[ext_resource type="Script" path="res://script/item/explode_field.gd" id="2_j4k6c"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8ffi8"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 256.0
+initial_velocity_max = 256.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_bhajt"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_knutb"]
+gradient = SubResource("Gradient_bhajt")
+width = 4
+height = 4
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c2saq"]
+radius = 192.0
+
+[node name="ExplodeField" instance=ExtResource("1_hb6qc")]
+script = ExtResource("2_j4k6c")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Graphic" index="0"]
+emitting = false
+amount = 64
+process_material = SubResource("ParticleProcessMaterial_8ffi8")
+texture = SubResource("GradientTexture2D_knutb")
+one_shot = true
+explosiveness = 0.84
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_c2saq")

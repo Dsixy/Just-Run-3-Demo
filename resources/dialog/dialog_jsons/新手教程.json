@@ -1,0 +1,73 @@
+{
+	"dialog_0": [
+		{
+			"id": 0,
+			"speaker": "小主",
+			"text": "欢迎来到Just Run3",
+			"next": 1
+		},
+		{
+			"id": 1,
+			"speaker": "小主",
+			"text": "我是小主，下面由我来带领你走过这个新手教程",
+			"next": 2
+		},
+		{
+			"id": 2,
+			"speaker": "小主",
+			"text": "我为你准备了一些东西在宝箱里，按下 E （交互）键去打开看看吧",
+			"next_dialog": [
+				{
+					"dialog_name": "dialog_1"
+				},
+			],
+		},
+	],
+	"dialog_1": [
+		{
+			"id": 0,
+			"speaker": "小主",
+			"text": "在宝箱边上按下 E （交互）键就可以取出其中的咒语",
+			"next": 1
+		},
+		{
+			"id": 1,
+			"speaker": "小主",
+			"text": "在咒语边上按下 E （交互）键就可以拾取",
+			"next": 2
+		},
+		{
+			"id": 2,
+			"speaker": "小主",
+			"text": "快去吧",
+			"next_dialog": [
+				{
+					"dialog_name": "dialog_2",
+					"condition": "treasure_box_opened"
+				},
+				{
+					"dialog_name": "dialog_1"
+				}
+			],
+		},
+	],
+	"dialog_2": [
+		{
+			"id": 0,
+			"speaker": "小主",
+			"text": "看起来你拿到了里面的咒语",
+			"next": 1
+		},
+		{
+			"id": 1,
+			"speaker": "小主",
+			"text": "我这些咒语需要 撰写 成完整的 魔咒 才能使用。按下 Q （咒语编辑）来打开你的卷轴面板",
+			"next": 2
+		},
+		{
+			"id": 2,
+			"speaker": "小主",
+			"text": "按照旁边的指示牌来 撰写 一个 完整的火球魔咒吧",
+		},
+	],
+}

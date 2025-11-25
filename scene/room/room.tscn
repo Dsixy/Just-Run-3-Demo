@@ -16,6 +16,7 @@ format = 2
 z_index = 1
 tile_set = ExtResource("3_54knl")
 format = 2
+layer_0/z_index = 1
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

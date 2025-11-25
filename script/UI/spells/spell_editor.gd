@@ -1,13 +1,20 @@
-extends Control
+extends UIBoard
 
 @onready var spellButtonScene = preload("res://scene/UI/spells/spell_button.tscn")
 @onready var buttonContainer = $HBoxContainer
 @onready var editor = $GraphEdit
 
+var player: BaseCharacter
 var spellManager: SpellManager
 var buttons := {}
 
-
+func _init():
+	self.boardName = "spell_edit_board"
+	
+func set_player(p: BaseCharacter):
+	player = p
+	set_spell_manager(player.spellManager)
+	
 func set_spell_manager(sm: SpellManager):
 	self.spellManager = sm
 
@@ -78,5 +85,10 @@ func close_board():
 			targetBoard = board
 			break
 			
-	return targetBoard.treeNode
+	if targetBoard:
+		var chosenSpellIdx = spellManager.currentSpellIdx
+		player.spellManager.compiledSpells[chosenSpellIdx] = targetBoard.treeNode
+		return targetBoard.treeNode
+	else:
+		return null
 	

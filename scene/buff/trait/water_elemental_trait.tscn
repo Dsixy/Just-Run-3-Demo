@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b514nk8hho2s6"]
+
+[ext_resource type="Script" path="res://script/buff/trait/water_elemental_trait.gd" id="1_yl2yl"]
+
+[node name="WaterElementalTrait" type="Node"]
+script = ExtResource("1_yl2yl")
+ID = -1
+buffName = "水形无常"
+description = "属于【水精灵】的特质"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

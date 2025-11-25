@@ -1,7 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://cd14t4aphr8rn"]
+[gd_scene load_steps=7 format=3 uid="uid://cd14t4aphr8rn"]
 
 [ext_resource type="PackedScene" uid="uid://dy28t44oiaynx" path="res://scene/enemy/base_enemy.tscn" id="1_l2fsd"]
 [ext_resource type="Script" path="res://script/enemy/water_elemental.gd" id="2_jlg08"]
 
+[sub_resource type="Gradient" id="Gradient_8vth2"]
+colors = PackedColorArray(0.24661, 0.46835, 1, 1, 0.541176, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fl1nj"]
+gradient = SubResource("Gradient_8vth2")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsknn"]
+size = Vector2(64, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_10c5o"]
+radius = 24.0
+
 [node name="WaterElemental" instance=ExtResource("1_l2fsd")]
 script = ExtResource("2_jlg08")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_fl1nj")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_dsknn")
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_10c5o")

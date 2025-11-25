@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bm7anqegy4bel"]
+
+[ext_resource type="Script" path="res://script/item/field.gd" id="1_2klvs"]
+
+[node name="Field" type="Node2D"]
+script = ExtResource("1_2klvs")
+
+[node name="Graphic" type="Node2D" parent="."]
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

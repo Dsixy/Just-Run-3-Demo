@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://dncyng5j7v0fc"]
+
+[ext_resource type="Script" path="res://script/UI/sign_board.gd" id="1_d0ale"]
+
+[sub_resource type="Gradient" id="Gradient_qjgon"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hhva5"]
+gradient = SubResource("Gradient_qjgon")
+width = 100
+height = 100
+
+[node name="SignBoard" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_d0ale")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = SubResource("GradientTexture2D_hhva5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 150
+theme_override_constants/margin_bottom = 150
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]

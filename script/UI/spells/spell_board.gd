@@ -4,6 +4,7 @@ extends GraphNode
 @onready var slideScene = preload("res://scene/UI/spells/slider.tscn")
 @onready var manaLabel = $HBoxContainer/VBoxContainer/ManaLabel
 @onready var castTimeLabel = $HBoxContainer/VBoxContainer/TimeLabel
+@onready var icon = $HBoxContainer/TextureRect
 
 var spellClass: GDScript
 var treeNode: SpellTreeNode
@@ -14,6 +15,7 @@ func override(spell_class):
 	var idx: int = 1
 	self.spellClass = spell_class
 	self.treeNode = SpellTreeNode.new(self.spellClass)
+	self.icon.texture = spell_class.icon
 
 	for key in self.spellClass.boardParams:
 		var subUI: Control

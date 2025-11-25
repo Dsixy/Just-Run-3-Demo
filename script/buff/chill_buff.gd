@@ -32,3 +32,10 @@ func process_damage(damage: Damage):
 	if damage.type == "Fire":
 		self.timer += 1
 	return damage
+
+func process_buff(buff: BaseBuff):
+	if buff.ID == 2:
+		var frozenBuff = GameInfo.allocate_buff("Frozen")
+		buffOwner.add_buff(frozenBuff)
+		buff.remove()
+		remove()

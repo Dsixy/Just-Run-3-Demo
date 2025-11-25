@@ -1,7 +1,7 @@
 extends Node2D
 
 const TILE_SIZE := 64
-const ROOM_DISTANCE := 30 * TILE_SIZE
+const ROOM_DISTANCE := 50 * TILE_SIZE
 const ROOM_COORDS_TEMPLATES := [
 	[
 		Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, 2),
@@ -10,11 +10,12 @@ const ROOM_COORDS_TEMPLATES := [
 	],
 ]
 
+@export var randomGenerate: bool = true
 @export var room_scenes: Array[PackedScene] = []
 @export var road_scene: PackedScene
 
 var rooms: Array = []
-var room_coords: Array = []
+@export var room_coords: Array = []
 var connections: Array = []
 
 var player: BaseCharacter
@@ -32,15 +33,21 @@ func _on_player_enter_room(room):
 	room.activate()
 	
 func build_rooms():
-	room_coords = ROOM_COORDS_TEMPLATES.pick_random()
-	
-	for coord in room_coords:
-		var room_scene = room_scenes.pick_random()
-		var room = room_scene.instantiate()
-		add_child(room)
-		room.position = Vector2(coord.x, coord.y) * ROOM_DISTANCE - room.get_room_center_world_pos()
-		rooms.append(room)
-		room.playerEnterS.connect(_on_player_enter_room)
+	if randomGenerate:
+		room_coords = ROOM_COORDS_TEMPLATES.pick_random()
+		
+		for coord in room_coords:
+			var room_scene = room_scenes.pick_random()
+			var room = room_scene.instantiate()
+			add_child(room)
+			room.position = Vector2(coord.x, coord.y) * ROOM_DISTANCE - room.get_room_center_world_pos()
+			rooms.append(room)
+			room.playerEnterS.connect(_on_player_enter_room)
+	else:
+		var children = get_children()
+		for child in children:
+			rooms.append(child)
+			child.playerEnterS.connect(_on_player_enter_room)
 
 func build_connections():
 	var connected := [0]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1s8li3bh4vdv"]
+
+[ext_resource type="PackedScene" uid="uid://2c6agwxg50e0" path="res://scene/room/room_manager.tscn" id="1_yrlt8"]
+[ext_resource type="PackedScene" uid="uid://ipne6pbjwitv" path="res://scene/room/room_0.tscn" id="2_474ft"]
+[ext_resource type="PackedScene" uid="uid://mgrju304kycp" path="res://scene/character/NPC/xiaozhu.tscn" id="3_1qy1u"]
+[ext_resource type="PackedScene" uid="uid://dus3p3vv3wq1g" path="res://scene/item/treasure_box.tscn" id="4_4jgkw"]
+[ext_resource type="Script" path="res://script/spell/linear_traj_spell.gd" id="5_c7t1l"]
+[ext_resource type="Script" path="res://script/spell/fireball_spell.gd" id="6_6rxru"]
+
+[node name="TutorialRoom" instance=ExtResource("1_yrlt8")]
+randomGenerate = false
+room_coords = [Vector2i(0, 0), Vector2i(1, 0)]
+
+[node name="Room0" parent="." index="0" instance=ExtResource("2_474ft")]
+
+[node name="Xiaozhu" parent="Room0" index="3" instance=ExtResource("3_1qy1u")]
+position = Vector2(272, 480)
+
+[node name="TreasureBox" parent="Room0" index="4" instance=ExtResource("4_4jgkw")]
+position = Vector2(736, 288)
+spell = ExtResource("5_c7t1l")
+
+[node name="TreasureBox2" parent="Room0" index="5" instance=ExtResource("4_4jgkw")]
+position = Vector2(736, 616)
+spell = ExtResource("6_6rxru")
+
+[node name="Room1" parent="." index="1" instance=ExtResource("2_474ft")]
+position = Vector2(3200, 0)
+
+[node name="Xiaozhu2" parent="Room1" index="3" instance=ExtResource("3_1qy1u")]
+position = Vector2(448, 472)

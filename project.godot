@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameInfo="*res://script/game_info.gd"
 FightInfoManager="*res://fight_info_manager.gd"
+UiLayer="*res://script/UILayer.gd"
 
 [display]
 

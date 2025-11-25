@@ -7,6 +7,9 @@ class_name BaseBuff extends Node
 var buffOwner: Node2D
 signal removeS(id: int)
 
+func _ready():
+	_on_buff_applied()
+	
 func stash():
 	pass
 	
@@ -24,5 +27,8 @@ func _on_buff_removed():
 func _process(delta):
 	pass
 
-func process_damage(damage: Damage):
+func process_damage(damage: Damage) -> Damage:
 	return damage
+	
+func process_buff(buff: BaseBuff):
+	return 

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh6lr2d2rndej"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f565k"]
+radius = 384.0
+
+[node name="MouseArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_f565k")

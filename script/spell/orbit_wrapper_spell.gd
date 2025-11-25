@@ -5,11 +5,11 @@ static var description := ""
 static var keys = ["投射物"]
 static var filter: Callable = func(spellClass):
 	return "投射物" in spellClass.keys
-	
+static var icon = ImageTexture.create_from_image(Image.load_from_file("res://resources/img/spell_icon/OrbitWrapSpell.png"))
 static var boardParams = {
 	"projSpell": ["源投射物【必要】", filter],
 	"projNum": ["包围个数", 1, 6, 1],
-	"radius": ["环绕半径", 50, 600, 10],
+	"radius": ["环绕半径", 50, 250, 10],
 	"angVel": ["环绕角速度", 0, 6, 0.2]
 }
 
@@ -87,5 +87,5 @@ func compute_cost_and_time():
 		
 	self.manaCost = cost
 	self.castTime = cast_time
-	return [cost, cast_time]
+	return [self.manaCost, self.castTime]
 

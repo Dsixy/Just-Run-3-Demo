@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://mgrju304kycp"]
+
+[ext_resource type="PackedScene" uid="uid://cc1ahd8brnw1s" path="res://scene/character/NPC/npc.tscn" id="1_3ye2u"]
+[ext_resource type="Script" path="res://script/character/NPC/xiaozhu.gd" id="2_kgc42"]
+
+[sub_resource type="Gradient" id="Gradient_i87m2"]
+colors = PackedColorArray(0, 0.362736, 0.244575, 1, 0, 0.913625, 0.272843, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y25xk"]
+gradient = SubResource("Gradient_i87m2")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_you7g"]
+size = Vector2(64, 64)
+
+[node name="Xiaozhu" instance=ExtResource("1_3ye2u")]
+script = ExtResource("2_kgc42")
+dialogResourcePath = "res://resources/dialog/dialog_jsons/新手教程.json"
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_y25xk")
+
+[node name="CollisionShape2D" parent="InteractArea" index="0"]
+shape = SubResource("RectangleShape2D_you7g")

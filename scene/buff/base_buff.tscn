@@ -4,3 +4,4 @@
 
 [node name="BaseBuff" type="Node"]
 script = ExtResource("1_pko6p")
+buffName = "无"

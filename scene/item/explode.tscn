@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://do3ushcfd54yg"]
+
+[ext_resource type="PackedScene" uid="uid://bm7anqegy4bel" path="res://scene/item/field.tscn" id="1_lsxdx"]
+
+[sub_resource type="GDScript" id="GDScript_87061"]
+script/source = "extends Field
+
+var speed: float = 4
+
+func _ready():
+	self.duration = 0.3
+	
+func _process(delta):
+	super._process(delta)
+	self.scale += Vector2.ONE * speed * delta
+func override(params: Dictionary):
+	self.damage = params[\"damage\"]
+	self.global_position = params[\"position\"]
+"
+
+[node name="Explode" instance=ExtResource("1_lsxdx")]
+script = SubResource("GDScript_87061")

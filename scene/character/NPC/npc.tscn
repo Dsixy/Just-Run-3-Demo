@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc1ahd8brnw1s"]
+
+[ext_resource type="Script" path="res://script/character/NPC/npc.gd" id="1_drcb4"]
+[ext_resource type="FontFile" uid="uid://dog15xn46by7y" path="res://resources/fonts/TIMES.TTF" id="2_sy4ks"]
+
+[node name="NPC" type="Node2D"]
+script = ExtResource("1_drcb4")
+
+[node name="Graphic" type="Node2D" parent="."]
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+
+[node name="Label" type="Label" parent="."]
+z_index = 2
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = -96.0
+offset_right = 48.0
+offset_bottom = -57.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_sy4ks")
+horizontal_alignment = 1
+vertical_alignment = 1

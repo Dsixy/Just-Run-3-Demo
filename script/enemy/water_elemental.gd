@@ -1,40 +1,65 @@
 extends BaseEnemy
 
+@onready var waterballScene = preload("res://scene/item/fireball.tscn")
+	
+var attackCoolDownInterval: float = 2.0
+var canAttack: bool = true
+	
 class MoveState extends State:
+	var attackMinDis: int = 400
+	var attackMaxDis: int = 560
+	var dirScale: int = 1
+		
 	func physics_process(delta):
 		if self.stateOwner.target:
-			var dir = (self.stateOwner.target.global_position - self.stateOwner.global_position).normalized()
-			self.stateOwner.velocity = dir * self.stateOwner.attr.speed
+			var dir = self.get_target_relative_position().normalized()
+			self.stateOwner.velocity = dir * self.stateOwner.attr.speed * self.dirScale
 		else:
 			self.stateOwner.velocity = Vector2.ZERO
 		self.stateOwner.move_and_slide()
 		
 	func process(delta):
-		if self.stateOwner.target and self.stateOwner.global_position.distance_to(self.stateOwner.target.global_position) <= 300:
-			transiteStateS.emit(AttackState.new(self.stateOwner))
+		self.attackMinDis -= delta * 100
+		if self.stateOwner.target:
+			var dis = get_target_distance()
+			if dis > self.attackMaxDis:
+				self.dirScale = 1
+			elif dis < self.attackMinDis:
+				self.dirScale = -1
+			else:
+				transiteStateS.emit(AttackState.new(self.stateOwner))
 		
 class AttackState extends State:
-	var leap_speed := 0.0
-	var direction := Vector2.ZERO
-
+	func attack():
+		var attackFunc: Callable = self.stateOwner.get("attack")
+		if attackFunc:
+			attackFunc.call()
+		
 	func enter():
-		direction = (self.stateOwner.target.global_position - self.stateOwner.global_position).normalized()
-		var tween = self.stateOwner.get_tree().create_tween()
-		tween.tween_property(self, "leap_speed", 0, 0.7)
-		tween.tween_property(self, "leap_speed", 1500.0, 0.2)
-		tween.tween_property(self, "leap_speed", 0.0, 0.2)
-		tween.tween_property(self, "leap_speed", 0, 0.4)
-		
-		await tween.finished
 		if not is_instance_valid(self.stateOwner):
-			return
-
-	func physics_process(delta):
-		self.stateOwner.velocity = direction * leap_speed
-		self.stateOwner.move_and_slide()
+			transiteStateS.emit(MoveState.new(self.stateOwner))
+			
+		await attack()
 		
-class FrozenState extends State:
-	pass
+		transiteStateS.emit(WanderState.new(self.stateOwner))
+
+class WanderState extends State:
+	var dir: Vector2
+	
+	func enter():
+		var timer = GameInfo.allocate_timer(1.0)
+		dir = Vector2.from_angle(randf() * TAU)
+		timer.timeout.connect(switch)
+		
+	func switch():
+		transiteStateS.emit(MoveState.new(self.stateOwner))
+		
+	func physics_process(delta):
+		if self.stateOwner.target:
+			self.stateOwner.velocity = dir * self.stateOwner.attr.speed * 0.5
+		else:
+			self.stateOwner.velocity = Vector2.ZERO
+		self.stateOwner.move_and_slide()
 	
 func _init():
 	super._init()
@@ -45,4 +70,29 @@ func set_target(t: Node2D):
 	self.target = t
 	
 func _ready():
+	var traitBuff = preload("res://scene/buff/trait/water_elemental_trait.tscn").instantiate()
+	add_buff(traitBuff)
 	self.transite_to_state(MoveState.new(self))
+	
+func attack():
+	if canAttack:
+		var waterball = waterballScene.instantiate()
+		GameInfo.add_node(waterball)
+		var damage = Damage.new(15)
+		var projVelocity = (target.global_position - global_position).normalized()
+		var overideDict = {
+			"global_position": self.global_position,
+			"damage": damage,
+			"targetGroup": "player",
+			"traj_func": func(delta, projectile: Node2D):
+				projectile.position += 400 * delta * projVelocity
+		}
+		waterball.override(overideDict)
+		
+		self.canAttack = false
+		var timer = GameInfo.allocate_timer(self.attackCoolDownInterval)
+		timer.timeout.connect(set_attack_avaiable)
+		
+func set_attack_avaiable():
+	self.canAttack = true
+		

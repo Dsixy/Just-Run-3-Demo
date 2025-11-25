@@ -10,6 +10,7 @@ const type2color = {
 	"Frost": Color8(0, 0, 255),
 	"Lightning": Color8(0, 150, 255),
 	"Psychic": Color8(255, 150, 200),
+	"Force": Color8(255, 255, 255)
 }
 
 func run(damage: Damage, pos: Vector2):

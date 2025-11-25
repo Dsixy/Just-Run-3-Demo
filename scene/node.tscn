@@ -1,18 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://beoa66nboanli"]
+[gd_scene load_steps=7 format=3 uid="uid://beoa66nboanli"]
 
 [ext_resource type="PackedScene" uid="uid://d1rnyfarulebj" path="res://scene/character/base_character.tscn" id="1_x7dn6"]
 [ext_resource type="Script" path="res://script/node.gd" id="1_yrwvk"]
-[ext_resource type="PackedScene" uid="uid://2c6agwxg50e0" path="res://scene/room/room_manager.tscn" id="2_x5vdw"]
+[ext_resource type="Script" path="res://script/UILayer.gd" id="3_g6vdt"]
 [ext_resource type="PackedScene" uid="uid://bd2p5iu1thajx" path="res://scene/UI/default/player_stat_ui.tscn" id="3_v1vi2"]
+[ext_resource type="PackedScene" uid="uid://2c6agwxg50e0" path="res://scene/room/room_manager.tscn" id="5_1wtao"]
+[ext_resource type="PackedScene" uid="uid://ctodyrnks0rvm" path="res://scene/item_node.tscn" id="6_0nn4c"]
 
 [node name="Node" type="Node"]
+process_mode = 3
 script = ExtResource("1_yrwvk")
 
-[node name="RoomManager" parent="." instance=ExtResource("2_x5vdw")]
-
 [node name="BaseCharacter" parent="." instance=ExtResource("1_x7dn6")]
+process_mode = 1
+y_sort_enabled = true
 position = Vector2(100, 100)
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("3_g6vdt")
 
 [node name="PlayerStatUI" parent="UILayer" instance=ExtResource("3_v1vi2")]
+
+[node name="RoomManager" parent="." instance=ExtResource("5_1wtao")]
+
+[node name="ItemNode" parent="." instance=ExtResource("6_0nn4c")]
+
+[connection signal="UI_board_closedS" from="UILayer" to="." method="_on_ui_layer_ui_board_closed_s"]
