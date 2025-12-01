@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2sj0xwede1if"]
+
+[ext_resource type="Script" path="res://script/item/souvenir_item.gd" id="1_nihbo"]
+[ext_resource type="PackedScene" uid="uid://drbhposjl5ll" path="res://scene/item/interactable_item.tscn" id="1_q41hp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhfjo"]
+size = Vector2(64, 64)
+
+[node name="SouvenirItem" instance=ExtResource("1_q41hp")]
+script = ExtResource("1_nihbo")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+
+[node name="CollisionShape2D" parent="InteractArea" index="0"]
+shape = SubResource("RectangleShape2D_xhfjo")

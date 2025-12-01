@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://clo0pycbk3af3"]
+
+[ext_resource type="PackedScene" uid="uid://drbhposjl5ll" path="res://scene/item/interactable_item.tscn" id="1_gv5fu"]
+[ext_resource type="Script" path="res://script/item/buildings/shop_slot.gd" id="2_mjsvn"]
+
+[sub_resource type="Gradient" id="Gradient_4gude"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r5pfh"]
+gradient = SubResource("Gradient_4gude")
+width = 128
+fill_from = Vector2(0, 0.918803)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g6cjm"]
+size = Vector2(128, 64)
+
+[node name="ShopSlot" instance=ExtResource("1_gv5fu")]
+script = ExtResource("2_mjsvn")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+position = Vector2(0, 16)
+texture = SubResource("GradientTexture2D_r5pfh")
+
+[node name="CollisionShape2D" parent="InteractArea" index="0"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_g6cjm")

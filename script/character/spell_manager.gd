@@ -18,7 +18,8 @@ func _init():
 		HomingTrajSpell: 1,
 		QuickCastSpell: 1,
 		AdvancedQuickCastSpell: 1,
-		BarrageSpell: 1
+		BarrageSpell: 1,
+		DualCastSpell: 3
 	}
 	
 	for i in range(maxSpellNum):

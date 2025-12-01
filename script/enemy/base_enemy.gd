@@ -1,5 +1,6 @@
 class_name BaseEnemy extends CharacterBody2D
 
+@export var enemyName: String
 class EnemyAttr:
 	var damageMultiplier: Dictionary = {
 		"Fire": 1.0,

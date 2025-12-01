@@ -8,12 +8,24 @@ var buffDict = {
 	"Slow": preload("res://scene/buff/slow_buff.tscn"),
 	"Haste": preload("res://scene/buff/haste_buff.tscn"),
 	"Wet": preload("res://scene/buff/wet_buff.tscn"),
-	"Frozen": preload("res://scene/buff/frozen_buff.tscn")
+	"Frozen": preload("res://scene/buff/frozen_buff.tscn"),
+	"WindStride": preload("res://scene/buff/wind_stride_buff.tscn")
 }
 
 var enemyDict = {
 	"DuangDuangWorm": preload("res://scene/enemy/duang_duang_worm.tscn"),
-	"WaterElemental": preload("res://scene/enemy/water_elemental.tscn")
+	"WaterElemental": preload("res://scene/enemy/water_elemental.tscn"),
+	"Bloverfly": preload("res://scene/enemy/bloverfly.tscn")
+}
+
+
+var potionList = {
+	"LesserHealthPotion": preload("res://scene/item/potions/lesser_health_potion.tscn"),
+	"FerocityPotion": preload("res://scene/item/potions/ferocity_potion.tscn"),
+}
+
+var souvenirList = {
+	"WhisperOfTheWind": preload("res://scene/item/souvenir/whisper_of_the_wind.tscn")
 }
 
 var spellList = [
@@ -28,6 +40,7 @@ var spellList = [
 	BounceTrajSpell,
 	OrbitTrajSpell,
 ]
+
 	
 func _ready():
 	add_child(mouseArea)

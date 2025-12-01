@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://jqxrv55jvcac"]
+
+[ext_resource type="Script" path="res://script/item/souvenir/souvenir.gd" id="1_cwiit"]
+
+[node name="Souvenir" type="Node2D"]
+script = ExtResource("1_cwiit")

@@ -5,8 +5,8 @@ extends Control
 @onready var MPBar = $StateBoard/MarginContainer/VBoxContainer/MPBar
 @onready var MPBarLabel = $StateBoard/MarginContainer/VBoxContainer/MPBar/Label
 @onready var spellIconContainer = $StateBoard/MarginContainer/VBoxContainer/HBoxContainer
+@onready var couponLabel = $StateBoard/MarginContainer/VBoxContainer/HBoxContainer2/Label
 
-@onready var test = $StateBoard/MarginContainer/VBoxContainer/HBoxContainer/GPUParticles2D
 var stateOwner: BaseCharacter
 var spellIconList: Array
 
@@ -27,6 +27,7 @@ func update_info():
 	MPBar.max_value = stateOwner.attr.maxMP
 	MPBar.value = stateOwner.state.MP
 	MPBarLabel.text = "{0}/{1}".format([stateOwner.state.MP, stateOwner.attr.maxMP])
+	couponLabel.text = str(self.stateOwner.couponManager.couponValue)
 	
 	for icon in self.spellIconList:
 		icon.modulate = Color8(100, 100, 100, 0)

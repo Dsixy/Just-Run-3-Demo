@@ -59,3 +59,4 @@ shape = SubResource("RectangleShape2D_8ha2o")
 
 [connection signal="timeout" from="Node/ManaTimer" to="." method="_on_mana_timer_timeout"]
 [connection signal="timeout" from="Node/CastTimer" to="." method="_on_cast_timer_timeout"]
+[connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_area_entered"]

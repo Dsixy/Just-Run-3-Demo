@@ -6,8 +6,8 @@ var attackCoolDownInterval: float = 2.0
 var canAttack: bool = true
 	
 class MoveState extends State:
-	var attackMinDis: int = 400
-	var attackMaxDis: int = 560
+	var attackMinDis: int = 300
+	var attackMaxDis: int = 800
 	var dirScale: int = 1
 		
 	func physics_process(delta):
@@ -56,15 +56,15 @@ class WanderState extends State:
 		
 	func physics_process(delta):
 		if self.stateOwner.target:
-			self.stateOwner.velocity = dir * self.stateOwner.attr.speed * 0.5
+			self.stateOwner.velocity = dir * self.stateOwner.attr.speed
 		else:
 			self.stateOwner.velocity = Vector2.ZERO
 		self.stateOwner.move_and_slide()
 	
 func _init():
 	super._init()
-	self.attr.maxHP = 50
-	self.state.HP = 50
+	self.attr.maxHP = 150
+	self.state.HP = 150
 	
 func set_target(t: Node2D):
 	self.target = t
@@ -74,19 +74,22 @@ func _ready():
 	
 func attack():
 	if canAttack:
-		var waterball = waterballScene.instantiate()
-		GameInfo.add_node(waterball)
-		var damage = Damage.new(15)
-		var projVelocity = (target.global_position - global_position).normalized()
-		var overideDict = {
-			"global_position": self.global_position,
-			"damage": damage,
-			"targetGroup": "player",
-			"traj_func": func(delta, projectile: Node2D):
-				projectile.position += 400 * delta * projVelocity
-		}
-		waterball.override(overideDict)
-		
+		for i in range(5):
+			var waterball = waterballScene.instantiate()
+			GameInfo.add_node(waterball)
+			var damage = Damage.new(15)
+			var projAng = (target.global_position - global_position).angle()
+			var projVelocity = Vector2.from_angle(projAng + randf_range(-0.5, 0.5))
+			var overideDict = {
+				"global_position": self.global_position,
+				"damage": damage,
+				"targetGroup": "player",
+				"traj_func": func(delta, projectile: Node2D):
+					projectile.position += 200 * delta * projVelocity
+			}
+			waterball.override(overideDict)
+			await get_tree().create_timer(0.03).timeout
+			
 		self.canAttack = false
 		var timer = GameInfo.allocate_timer(self.attackCoolDownInterval)
 		timer.timeout.connect(set_attack_avaiable)

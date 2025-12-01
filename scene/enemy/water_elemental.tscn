@@ -17,6 +17,7 @@ radius = 24.0
 
 [node name="WaterElemental" instance=ExtResource("1_l2fsd")]
 script = ExtResource("2_jlg08")
+enemyName = "水精灵"
 
 [node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
 texture = SubResource("GradientTexture2D_fl1nj")

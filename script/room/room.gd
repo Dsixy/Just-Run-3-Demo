@@ -2,6 +2,7 @@ extends Node2D
 
 const treasureBoxScene = preload("res://scene/item/treasure_box.tscn")
 const spellItemScene = preload("res://scene/item/spell_item.tscn")
+const couponScene = preload("res://scene/item/milktea_coupon.tscn")
 @onready var wallTileMap = $Wall
 @onready var floorTileMap = $Floor
 @export var roomSize: Vector2
@@ -24,7 +25,7 @@ func _ready():
 			[
 				{"name": "DuangDuangWorm", "position": Vector2(300, 300)},
 				{"name": "DuangDuangWorm", "position": Vector2(1000, 1000)},
-				{"name": "DuangDuangWorm", "position": Vector2(1000, 300)},
+				{"name": "Bloverfly", "position": Vector2(1000, 300)},
 			],
 			[
 				{"name": "WaterElemental", "position": Vector2(300, 300)},
@@ -107,8 +108,11 @@ func close_gate():
 func generate_spoils(pos: Vector2):
 	var spellItem = spellItemScene.instantiate()
 	spellItem.set_spell_type(GameInfo.spellList.pick_random())
+	
+	var coupon = couponScene.instantiate()
+	coupon.set_value(5)
 	var treasureBox = treasureBoxScene.instantiate()
-	treasureBox.set_content(spellItem)
+	treasureBox.set_content(coupon)
 	add_child(treasureBox)
 	treasureBox.position = pos
 	

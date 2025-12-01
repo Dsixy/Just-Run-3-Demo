@@ -7,18 +7,35 @@ class CharacterAttr:
 	var spellPower: int = 10
 	var maxMP: int = 250
 	var inspiration: float = 100.0
-	var castSpeedModifier: float = 0.0
 	var prosperity: float = 0.0
 	var magicPenetration: float = 0.0
 	var critDamage: float = 2.0
 	
+	func modify_attr(sn: String, v: int):
+		var value = self.get(sn)
+		if value:
+			self.set(sn, value + v)
+			
+	func set_attr(sn: String, v: int):
+		var value = self.get(sn)
+		if value:
+			self.set(sn, v)
+	
 class CharacterState:
 	var HP: float
 	var MP: float
+	var attr: CharacterAttr
 	
-	func _init(attr: CharacterAttr):
-		self.HP = attr.maxHP
-		self.MP = attr.maxMP
+	func _init(a: CharacterAttr):
+		self.HP = a.maxHP
+		self.MP = a.maxMP
+		self.attr = a
+		
+	func modify_state(sn: String, v: int):
+		match sn:
+			"HP": self.HP = clamp(self.HP + v, 0, self.attr.maxHP)
+			"MP": self.MP = clamp(self.MP + v, 0, self.attr.maxMP)
+			_: push_error("no such state!")
 
 var attr: CharacterAttr
 var state: CharacterState
@@ -29,13 +46,16 @@ var spellManager := SpellManager.new()
 @onready var coolDownTimer = $Node/CastTimer
 @onready var buffManager = $BuffManager
 signal stateChangeS
+signal applySpellS
 
+var couponManager:= CouponManager.new()
 @onready var interactArea = $InteractArea
 
 func _init():
 	self.attr = CharacterAttr.new()
 	self.state = CharacterState.new(self.attr)
-	
+	self.couponManager.couponChangeS.connect(func(): emit_signal("stateChangeS"))
+
 func _input(event):
 	direction = Vector2.ZERO
 	if Input.is_action_pressed("MoveLeft"):
@@ -83,6 +103,8 @@ func apply_spell(spell: BaseSpell):
 		"applier": self
 	}
 	spell.apply(dict)
+	
+	emit_signal("applySpellS")
 	self.canApplySpell = false
 	self.coolDownTimer.start(time)
 	
@@ -116,12 +138,14 @@ func death():
 func add_buff(buff: BaseBuff):
 	self.buffManager.add_buff(buff)
 	
-func set_spell(spell: SpellTreeNode):
-	self.spells[self.currentSpellIdx] = spell
-	
 func _on_mana_timer_timeout():
 	self.state.MP = min(self.attr.maxMP, self.state.MP + self.attr.inspiration)
 	emit_signal("stateChangeS")
 
 func _on_cast_timer_timeout():
 	self.canApplySpell = true
+
+func _on_interact_area_area_entered(area):
+	var item = area.get_parent()
+	if is_instance_of(item, InteractableItem):
+		item.preactivate(self)

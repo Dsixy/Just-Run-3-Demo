@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7msxqi60vfqj"]
+
+[ext_resource type="PackedScene" uid="uid://drbhposjl5ll" path="res://scene/item/interactable_item.tscn" id="1_0gutu"]
+[ext_resource type="Script" path="res://script/item/milktea_coupon.gd" id="2_iofw0"]
+
+[sub_resource type="Gradient" id="Gradient_bc7oc"]
+colors = PackedColorArray(0.854902, 0.631373, 0.211765, 1, 1, 0.815686, 0.278431, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5qtow"]
+gradient = SubResource("Gradient_bc7oc")
+width = 16
+height = 32
+fill_to = Vector2(0.0598291, 0.594017)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ovwc"]
+size = Vector2(16, 32)
+
+[node name="MilkteaCoupon" instance=ExtResource("1_0gutu")]
+script = ExtResource("2_iofw0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_5qtow")
+
+[node name="CollisionShape2D" parent="InteractArea" index="0"]
+shape = SubResource("RectangleShape2D_7ovwc")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8fjcp1qc2026"]
+
+[ext_resource type="Script" path="res://script/buff/wind_stride_buff.gd" id="1_u7sp1"]
+
+[node name="WindStrideBuff" type="Node"]
+script = ExtResource("1_u7sp1")
+ID = 5
+buffName = "风行"

@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://qrtnn1ivp82g"]
+
+[ext_resource type="PackedScene" uid="uid://jqxrv55jvcac" path="res://scene/item/souvenir/souvenir.tscn" id="1_i7rk1"]
+[ext_resource type="PackedScene" uid="uid://j36a415y5eyh" path="res://scene/buff/souvenir/whisper_of_the_wind.tscn" id="2_qxbtg"]
+[ext_resource type="Texture2D" uid="uid://itcx5gw5k5mv" path="res://resources/img/spell_icon/PeriodicTriggerSpell.png" id="3_xqb3k"]
+
+[node name="WhisperOfTheWind" instance=ExtResource("1_i7rk1")]
+buff = ExtResource("2_qxbtg")
+souvenirName = "风之语"
+texture = ExtResource("3_xqb3k")

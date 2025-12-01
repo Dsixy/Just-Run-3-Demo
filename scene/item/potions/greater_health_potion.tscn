@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://8b7teq2iaoua"]
+
+[ext_resource type="PackedScene" uid="uid://drbhposjl5ll" path="res://scene/item/interactable_item.tscn" id="1_cmg0r"]
+[ext_resource type="Script" path="res://script/item/potions/greater_health_potion.gd" id="2_c5xxl"]
+
+[node name="GreaterHealthPotion" instance=ExtResource("1_cmg0r")]
+script = ExtResource("2_c5xxl")
+potionName = "中级生命药水"
+latentValue = 30

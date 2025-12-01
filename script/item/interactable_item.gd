@@ -5,3 +5,5 @@ var interactable: bool = true
 func activate(sub: BaseCharacter):
 	pass
 	
+func preactivate(sub: BaseCharacter):
+	pass

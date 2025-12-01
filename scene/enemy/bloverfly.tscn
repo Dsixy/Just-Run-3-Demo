@@ -1,7 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://fpmgo5sdvtha"]
+[gd_scene load_steps=7 format=3 uid="uid://fpmgo5sdvtha"]
 
 [ext_resource type="PackedScene" uid="uid://dy28t44oiaynx" path="res://scene/enemy/base_enemy.tscn" id="1_g67p7"]
 [ext_resource type="Script" path="res://script/enemy/bloverfly.gd" id="2_nlcfb"]
 
+[sub_resource type="Gradient" id="Gradient_q43q6"]
+colors = PackedColorArray(0.729412, 0, 0, 1, 1, 0.545098, 0.545098, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cngr2"]
+gradient = SubResource("Gradient_q43q6")
+fill_to = Vector2(1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5jnn6"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omn70"]
+size = Vector2(64, 64)
+
 [node name="Bloverfly" instance=ExtResource("1_g67p7")]
 script = ExtResource("2_nlcfb")
+enemyName = "大友爱蝶"
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_cngr2")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_5jnn6")
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("RectangleShape2D_omn70")

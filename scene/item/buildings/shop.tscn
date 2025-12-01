@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ppk4v3yu8j21"]
+
+[ext_resource type="Script" path="res://script/item/buildings/shop.gd" id="1_bfx6a"]
+[ext_resource type="PackedScene" uid="uid://clo0pycbk3af3" path="res://scene/item/buildings/shop_slot.tscn" id="2_tcor7"]
+
+[node name="Shop" type="Node2D"]
+script = ExtResource("1_bfx6a")
+
+[node name="Graphic" type="Node2D" parent="."]
+
+[node name="ShopSlot" parent="." instance=ExtResource("2_tcor7")]
+position = Vector2(-256, 48)
+
+[node name="ShopSlot2" parent="." instance=ExtResource("2_tcor7")]
+position = Vector2(0, 48)
+
+[node name="ShopSlot3" parent="." instance=ExtResource("2_tcor7")]
+position = Vector2(256, 48)

@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://l8etml3g4xbx"]
+
+[ext_resource type="PackedScene" uid="uid://drbhposjl5ll" path="res://scene/item/interactable_item.tscn" id="1_30iqi"]
+[ext_resource type="Script" path="res://script/item/potions/lesser_health_potion.gd" id="2_e4dky"]
+
+[sub_resource type="Gradient" id="Gradient_f3krp"]
+colors = PackedColorArray(1, 0.494251, 0.42709, 1, 1, 0.319205, 0.29914, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qxu5x"]
+gradient = SubResource("Gradient_f3krp")
+width = 16
+height = 16
+fill_to = Vector2(0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xtw8u"]
+size = Vector2(16, 16)
+
+[node name="LesserHealthPotion" instance=ExtResource("1_30iqi")]
+script = ExtResource("2_e4dky")
+potionName = "普通生命药水"
+latentValue = 10
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_qxu5x")
+
+[node name="CollisionShape2D" parent="InteractArea" index="0"]
+shape = SubResource("RectangleShape2D_xtw8u")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1po3whpr6s81"]
+
+[ext_resource type="PackedScene" uid="uid://drbhposjl5ll" path="res://scene/item/interactable_item.tscn" id="1_r8sym"]
+[ext_resource type="Script" path="res://script/item/potions/ferocity_potion.gd" id="2_1gux0"]
+
+[sub_resource type="Gradient" id="Gradient_8878x"]
+colors = PackedColorArray(0.509804, 0, 0, 1, 1, 0.415686, 0.298039, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_36m0s"]
+gradient = SubResource("Gradient_8878x")
+width = 16
+height = 32
+fill_from = Vector2(0, 0.949541)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wmge7"]
+size = Vector2(16, 32)
+
+[node name="FerocityPotion" instance=ExtResource("1_r8sym")]
+script = ExtResource("2_1gux0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_36m0s")
+
+[node name="CollisionShape2D" parent="InteractArea" index="0"]
+shape = SubResource("RectangleShape2D_wmge7")
