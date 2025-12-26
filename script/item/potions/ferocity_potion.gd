@@ -1,7 +1,7 @@
 extends Potion
 
 func activate(p: BaseCharacter):
-	p.attr.modify_attr("critRate", 0.05)
+	p.attrManager.critRate += 0.05
 	delete()
 
 func delete():

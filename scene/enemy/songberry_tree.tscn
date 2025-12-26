@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://cudf5tmbp0qvs"]
+
+[ext_resource type="PackedScene" uid="uid://dy28t44oiaynx" path="res://scene/enemy/base_enemy.tscn" id="1_8ixgm"]
+[ext_resource type="Script" path="res://script/enemy/songberry_tree.gd" id="2_c6gsr"]
+
+[sub_resource type="Gradient" id="Gradient_hn0ir"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uu58n"]
+gradient = SubResource("Gradient_hn0ir")
+width = 32
+height = 128
+fill_to = Vector2(0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kd5vr"]
+size = Vector2(32, 64)
+
+[node name="SongberryTree" instance=ExtResource("1_8ixgm")]
+script = ExtResource("2_c6gsr")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_uu58n")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_kd5vr")

@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://dh50pcyh4k1nu"]
+
+[ext_resource type="PackedScene" uid="uid://kqiqco5a6dgw" path="res://scene/item/projectile/projectile.tscn" id="1_o6oeg"]
+[ext_resource type="Script" path="res://script/item/projectile/pinecone.gd" id="2_ulmtp"]
+
+[sub_resource type="Gradient" id="Gradient_jp58e"]
+colors = PackedColorArray(0.389415, 0.18501, 1.44392e-07, 1, 1, 0.552941, 0.109804, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_db1nb"]
+gradient = SubResource("Gradient_jp58e")
+width = 16
+height = 16
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m6ss4"]
+size = Vector2(16, 16)
+
+[node name="Pinecone" instance=ExtResource("1_o6oeg")]
+z_index = 1
+script = ExtResource("2_ulmtp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_db1nb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("RectangleShape2D_m6ss4")

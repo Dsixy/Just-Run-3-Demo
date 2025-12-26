@@ -1,44 +1,6 @@
 class_name BaseCharacter extends CharacterBody2D
 
-class CharacterAttr:
-	var maxHP: int = 100
-	var speed: int = 450
-	var critRate: float = 0.05
-	var spellPower: int = 10
-	var maxMP: int = 250
-	var inspiration: float = 100.0
-	var prosperity: float = 0.0
-	var magicPenetration: float = 0.0
-	var critDamage: float = 2.0
-	
-	func modify_attr(sn: String, v: int):
-		var value = self.get(sn)
-		if value:
-			self.set(sn, value + v)
-			
-	func set_attr(sn: String, v: int):
-		var value = self.get(sn)
-		if value:
-			self.set(sn, v)
-	
-class CharacterState:
-	var HP: float
-	var MP: float
-	var attr: CharacterAttr
-	
-	func _init(a: CharacterAttr):
-		self.HP = a.maxHP
-		self.MP = a.maxMP
-		self.attr = a
-		
-	func modify_state(sn: String, v: int):
-		match sn:
-			"HP": self.HP = clamp(self.HP + v, 0, self.attr.maxHP)
-			"MP": self.MP = clamp(self.MP + v, 0, self.attr.maxMP)
-			_: push_error("no such state!")
-
-var attr: CharacterAttr
-var state: CharacterState
+var attrManager:= AttrManager.new()
 var direction: Vector2
 
 var canApplySpell: bool = true
@@ -52,8 +14,6 @@ var couponManager:= CouponManager.new()
 @onready var interactArea = $InteractArea
 
 func _init():
-	self.attr = CharacterAttr.new()
-	self.state = CharacterState.new(self.attr)
 	self.couponManager.couponChangeS.connect(func(): emit_signal("stateChangeS"))
 
 func _input(event):
@@ -90,16 +50,15 @@ func apply_spell(spell: BaseSpell):
 	var cost = arr[0]
 	var time = arr[1]
 	
-	if cost > self.state.MP:
+	if cost > self.attrManager.MP:
 		return
 		
-	self.state.MP -= cost
+	self.attrManager.MP -= cost
 	var dict = {
 		"mainscene": get_parent(),
 		"position": global_position,
 		"target_position": get_global_mouse_position(),
-		"player_attr_info": attr,
-		"player_state_info": state,
+		"player_attr_info": attrManager,
 		"applier": self
 	}
 	spell.apply(dict)
@@ -111,16 +70,16 @@ func apply_spell(spell: BaseSpell):
 	emit_signal("stateChangeS")
 	
 func _physics_process(delta):
-	velocity = direction * attr.speed
+	velocity = direction * attrManager.speed.final_value()
 	move_and_slide()
 	
 func take_damage(damage: Damage):
 	var final_damage_amount = damage.finalDamage
 	FightInfoManager.show_damage_label(damage, global_position + Vector2.UP * 50)
-	self.state.HP = max(self.state.HP - final_damage_amount, 0)
+	self.attrManager.set_state_value("HP", -final_damage_amount)
 	emit_signal("stateChangeS")
 	
-	if self.state.HP <= 0:
+	if self.attrManager.HP <= 0:
 		self.death()
 
 func interact():
@@ -139,7 +98,7 @@ func add_buff(buff: BaseBuff):
 	self.buffManager.add_buff(buff)
 	
 func _on_mana_timer_timeout():
-	self.state.MP = min(self.attr.maxMP, self.state.MP + self.attr.inspiration)
+	self.attrManager.set_state_value("MP", self.attrManager.inspiration.final_value())
 	emit_signal("stateChangeS")
 
 func _on_cast_timer_timeout():

@@ -22,11 +22,10 @@ func _process(delta):
 		remove()
 
 func _on_buff_applied():
-	self.shortedSpeed = self.buffOwner.attr.speed * 0.3
-	self.buffOwner.attr.speed -= self.shortedSpeed
+	self.buffOwner.attrManager.speed.modify_extra_value(-0.3)
 	
 func _on_buff_removed():
-	self.buffOwner.attr.speed += self.shortedSpeed
+	self.buffOwner.attrManager.speed.modify_extra_value(0.3)
 
 func process_damage(damage: Damage):
 	if damage.type == "Fire":

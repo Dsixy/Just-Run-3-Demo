@@ -4,31 +4,44 @@ const TILE_SIZE := 64
 const ROOM_DISTANCE := 50 * TILE_SIZE
 const ROOM_COORDS_TEMPLATES := [
 	[
-		Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, 2),
-		Vector2i(1, 0), Vector2i(1, 1), Vector2i(1, 2),
-		Vector2i(2, 0), Vector2i(2, 1), Vector2i(2, 2),
+		Vector2i(0, 0), Vector2i(0, 1)
 	],
+	#[
+		#Vector2i(0, 0), Vector2i(0, 1), Vector2i(0, 2),
+		#Vector2i(1, 0), Vector2i(1, 1), Vector2i(1, 2),
+		#Vector2i(2, 0), Vector2i(2, 1), Vector2i(2, 2),
+	#],
 ]
+const ROOM_TYPE_DICT:= {
+	"Grass": preload("res://resources/room_set/grass.tres")
+}
 
 @export var randomGenerate: bool = true
-@export var room_scenes: Array[PackedScene] = []
-@export var road_scene: PackedScene
+@export var room_coords: Array = []
 
 var rooms: Array = []
-@export var room_coords: Array = []
 var connections: Array = []
-
 var player: BaseCharacter
+var roomType: String
+var roomSet: RoomSetRes
+var roomInfo: Dictionary
 
 func _ready():
+	#set_type()
 	build_rooms()
 	build_connections()
 	build_roads()
 	
-func test():
+func set_room_player():
 	for room in rooms:
 		room.player = player
-
+		
+func set_info(info: Dictionary):
+	roomInfo = info
+	if info["type"] in ROOM_TYPE_DICT:
+		roomType = info["type"]
+		roomSet = ROOM_TYPE_DICT[info["type"]]
+	
 func _on_player_enter_room(room):
 	room.activate()
 	
@@ -37,7 +50,17 @@ func build_rooms():
 		room_coords = ROOM_COORDS_TEMPLATES.pick_random()
 		
 		for coord in room_coords:
-			var room_scene = room_scenes.pick_random()
+			var room_scene
+			if coord == Vector2i(0, 0):
+				room_scene = roomSet.shopScene
+			elif coord == room_coords[-1]:
+				if roomInfo["has_boss"]:
+					room_scene = roomSet.bossRoomScene
+				else:
+					room_scene = roomSet.endScene
+			else:
+				room_scene = roomSet.roomScene.pick_random()
+				
 			var room = room_scene.instantiate()
 			add_child(room)
 			room.position = Vector2(coord.x, coord.y) * ROOM_DISTANCE - room.get_room_center_world_pos()
@@ -69,6 +92,29 @@ func build_connections():
 		connections.append(link)
 		connected.append(link.y)
 		pending.erase(link.y)
+		
+	var existing = {}
+	for c in connections:
+		existing[str(c)] = true
+
+	for i in range(room_coords.size()):
+		for diff in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+			var dst_pos = room_coords[i] + diff
+
+			var j := room_coords.find(dst_pos)
+			if j == -1:
+				continue
+
+			var link = Vector2i(i, j)
+			var link_reverse = Vector2i(j, i)
+
+			if existing.has(str(link)) or existing.has(str(link_reverse)):
+				continue
+
+			if randf() < 0.5:
+				connections.append(link)
+				existing[str(link)] = true
+				
 
 func build_roads():
 	for conn in connections:
@@ -109,7 +155,7 @@ func build_roads():
 				continue
 				
 		if (from_pos.x <= to_pos.x and from_pos.y <= to_pos.y) or true:
-			var road = road_scene.instantiate()
+			var road = roomSet.roadScene.instantiate()
 			add_child(road)
 			if road.has_method("set_points"):
 				road.set_points(from_pos, to_pos)

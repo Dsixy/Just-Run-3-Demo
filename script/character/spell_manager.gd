@@ -5,21 +5,24 @@ var compiledSpells := []
 var maxSpellNum: int = 2
 var currentSpellIdx: int = 0
 
+var graphDicData: Dictionary
+
 func _init():
 	self.spells = {
 		StoneConeSpell: 1,
 		LinearTrajSpell: 5,
-		SnowballSpell: 2,
+		#SnowballSpell: 2,
 		FireballSpell: 1,
-		PierceProjModSpell: 1,
-		BounceTrajSpell: 1,
-		ExplodeFieldSpell: 1,
-		OrbitTrajSpell: 5,
+		#PierceProjModSpell: 1,
+		#BounceTrajSpell: 1,
+		#ExplodeFieldSpell: 1,
+		#OrbitTrajSpell: 5,
 		HomingTrajSpell: 1,
 		QuickCastSpell: 1,
-		AdvancedQuickCastSpell: 1,
+		#AdvancedQuickCastSpell: 1,
 		BarrageSpell: 1,
-		DualCastSpell: 3
+		#DualCastSpell: 3,
+		DoubleCastSpell: 1
 	}
 	
 	for i in range(maxSpellNum):

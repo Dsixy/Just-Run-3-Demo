@@ -20,3 +20,4 @@ func activate(p: BaseCharacter):
 	else:
 		p.couponManager.cost_coupon(price)
 		self.content.interactable = true
+		isSold = true

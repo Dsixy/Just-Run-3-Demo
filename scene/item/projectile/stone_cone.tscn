@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bk3cx7simr28p"]
 
-[ext_resource type="PackedScene" uid="uid://kqiqco5a6dgw" path="res://scene/item/projectile.tscn" id="1_odpep"]
-[ext_resource type="Script" path="res://script/item/stone_cone.gd" id="2_ymm3h"]
+[ext_resource type="PackedScene" uid="uid://kqiqco5a6dgw" path="res://scene/item/projectile/projectile.tscn" id="1_odpep"]
+[ext_resource type="Script" path="res://script/item/projectile/stone_cone.gd" id="2_ymm3h"]
 
 [sub_resource type="Gradient" id="Gradient_yrsqa"]
 colors = PackedColorArray(0.411261, 0.252491, 4.81308e-08, 1, 0.717647, 0.443137, 0.313726, 1)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d1s8li3bh4vdv"]
 
 [ext_resource type="PackedScene" uid="uid://2c6agwxg50e0" path="res://scene/room/room_manager.tscn" id="1_yrlt8"]
-[ext_resource type="PackedScene" uid="uid://ipne6pbjwitv" path="res://scene/room/room_0.tscn" id="2_474ft"]
+[ext_resource type="PackedScene" uid="uid://ipne6pbjwitv" path="res://scene/room/grass/room_0.tscn" id="2_474ft"]
 [ext_resource type="PackedScene" uid="uid://mgrju304kycp" path="res://scene/character/NPC/xiaozhu.tscn" id="3_1qy1u"]
 [ext_resource type="PackedScene" uid="uid://dus3p3vv3wq1g" path="res://scene/item/treasure_box.tscn" id="4_4jgkw"]
 [ext_resource type="Script" path="res://script/spell/linear_traj_spell.gd" id="5_c7t1l"]

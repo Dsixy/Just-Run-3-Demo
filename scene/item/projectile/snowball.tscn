@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://c00l2wwqj4ejx"]
 
-[ext_resource type="PackedScene" uid="uid://kqiqco5a6dgw" path="res://scene/item/projectile.tscn" id="1_380qo"]
+[ext_resource type="PackedScene" uid="uid://kqiqco5a6dgw" path="res://scene/item/projectile/projectile.tscn" id="1_380qo"]
 [ext_resource type="Script" path="res://script/item/snowball.gd" id="2_7cq44"]
 
 [sub_resource type="Gradient" id="Gradient_tdioc"]

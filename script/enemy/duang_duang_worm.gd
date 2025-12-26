@@ -6,7 +6,7 @@ class MoveState extends State:
 	func physics_process(delta):
 		if self.stateOwner.target:
 			var dir = (self.stateOwner.target.global_position - self.stateOwner.global_position).normalized()
-			self.stateOwner.velocity = dir * self.stateOwner.attr.speed
+			self.stateOwner.velocity = dir * self.stateOwner.attrManager.speed.final_value()
 		else:
 			self.stateOwner.velocity = Vector2.ZERO
 		self.stateOwner.move_and_slide()
@@ -48,8 +48,9 @@ var leapDamage: Damage
 
 func _init():
 	super._init()
-	self.attr.maxHP = 250
-	self.state.HP = self.attr.maxHP
+	self.attrManager = AttrManager.new({
+		"maxHP": 150
+	})
 	self.leapDamage = Damage.new(15, 0, 0, 0, "Blunt")
 	
 func set_target(t: Node2D):

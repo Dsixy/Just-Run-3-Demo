@@ -3,9 +3,22 @@ extends Node2D
 const treasureBoxScene = preload("res://scene/item/treasure_box.tscn")
 const spellItemScene = preload("res://scene/item/spell_item.tscn")
 const couponScene = preload("res://scene/item/milktea_coupon.tscn")
+const HPBarScene = preload("res://scene/UI/boss_hp_bar.tscn")
 @onready var wallTileMap = $Wall
 @onready var floorTileMap = $Floor
 @export var roomSize: Vector2
+@export var enemyArr:= [
+	[
+		{"name": "DuangDuangWorm", "position": Vector2(300, 300)},
+		#{"name": "DuangDuangWorm", "position": Vector2(1000, 1000)},
+		#{"name": "Bloverfly", "position": Vector2(1000, 300)},
+	],
+	#[
+		#{"name": "WaterElemental", "position": Vector2(300, 300)},
+		#{"name": "DuangDuangWorm", "position": Vector2(1000, 1000)},
+		#{"name": "WaterElemental", "position": Vector2(1000, 300)},
+	#],
+]
 
 const GATE_SIZE := 6
 const TILE_SIZE := 64
@@ -16,24 +29,13 @@ var player: BaseCharacter
 var hasActivated: bool = false
 var enemyManager: EnemyManager
 
+var HPBar: Control
+
 signal playerEnterS(room: Node2D)
 
 func _ready():
 	update_floor_navigation()
-	enemyManager = EnemyManager.new(
-		[
-			[
-				{"name": "DuangDuangWorm", "position": Vector2(300, 300)},
-				{"name": "DuangDuangWorm", "position": Vector2(1000, 1000)},
-				{"name": "Bloverfly", "position": Vector2(1000, 300)},
-			],
-			[
-				{"name": "WaterElemental", "position": Vector2(300, 300)},
-				{"name": "DuangDuangWorm", "position": Vector2(1000, 1000)},
-				{"name": "WaterElemental", "position": Vector2(1000, 300)},
-			],
-		]
-	)
+	enemyManager = EnemyManager.new(enemyArr)
 	enemyManager.currentRoom = self
 	enemyManager.enemyClearedS.connect(deactivate)
 	enemyManager.set_enemy()
@@ -105,6 +107,12 @@ func close_gate():
 		if tile_id == 0:
 			wallTileMap.set_cell(0, cell, 2, Vector2i(2, 0))
 			
+func set_boss(e: BaseEnemy):
+	HPBar = HPBarScene.instantiate()
+	GameInfo.add_UI_node(HPBar)
+	HPBar.set_bar_owner(e)
+	HPBar.hide()
+	
 func generate_spoils(pos: Vector2):
 	var spellItem = spellItemScene.instantiate()
 	spellItem.set_spell_type(GameInfo.spellList.pick_random())
@@ -152,6 +160,18 @@ func take_damage(world_pos: Vector2, damage: Damage) -> void:
 	var cell = wallTileMap.local_to_map(to_local(world_pos))
 	damage_cell(cell, damage)
 
+func take_damage_by_rect2(area: Rect2, damage: Damage) -> void:
+	var local_rect = Rect2(wallTileMap.to_local(area.position), area.size)	
+	
+	var map_start = wallTileMap.local_to_map(local_rect.position)
+	var map_end = wallTileMap.local_to_map(local_rect.end)
+	
+	for x in range(map_start.x, map_end.x + 1):
+		for y in range(map_start.y, map_end.y + 1):
+			damage_cell(Vector2i(x, y), damage.copy())
+			
 func _on_area_2d_area_entered(area):
 	if area.is_in_group("player"):
 		playerEnterS.emit(self)
+		if is_instance_valid(HPBar):
+			HPBar.show()

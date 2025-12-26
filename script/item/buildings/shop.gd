@@ -10,8 +10,11 @@ enum TYPE {
 	SPELL, POTION, SOUVENIR
 }
 @export var shopType: TYPE
+@export var random: bool = true
 
 func _ready():
+	if random:
+		self.shopType = [TYPE.SPELL, TYPE.POTION, TYPE.SOUVENIR].pick_random()
 	set_type(self.shopType)
 	
 func set_type(t: TYPE):

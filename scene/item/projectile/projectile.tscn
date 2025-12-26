@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://kqiqco5a6dgw"]
 
-[ext_resource type="Script" path="res://script/item/projectile.gd" id="1_jdqx6"]
+[ext_resource type="Script" path="res://script/item/projectile/projectile.gd" id="1_w01ci"]
 
 [node name="Projectile" type="Node2D"]
-script = ExtResource("1_jdqx6")
+script = ExtResource("1_w01ci")
 
 [node name="Graphic" type="Node2D" parent="."]
 

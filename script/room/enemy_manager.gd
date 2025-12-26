@@ -15,6 +15,8 @@ func _init(a: Array):
 	currentWave = 0
 	
 func set_enemy():
+	if currentWave >= totalWave:
+		return
 	if currentRoom == null:
 		push_warning("You should set room first!")
 	
@@ -25,6 +27,9 @@ func set_enemy():
 		e.position = enemy["position"]
 		e.deathS.connect(_on_enemy_death)
 		enemyList.append(e)
+		
+		if e.isBoss:
+			currentRoom.set_boss(e)
 	
 	currentWave += 1
 

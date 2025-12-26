@@ -9,7 +9,8 @@ var damageResis := {
 	"Poison": 0,
 	"Force": 0,
 	"Lightning": 0,
-	"Psychic": 0
+	"Psychic": 0,
+	"Slash": 0,
 }
 
 var damageImmun := {
@@ -20,22 +21,26 @@ var damageImmun := {
 	"Poison": false,
 	"Force": false,
 	"Lightning": false,
-	"Psychic": false
+	"Psychic": false,
+	"Slash": false
 }
 
 func set_damage_all_immu(i: bool):
 	for damage_type in damageImmun:
 		damageImmun[damage_type] = i
-		
+
 func set_damage_immu(damage_types: Array, i: bool):
 	for damage_type in damage_types:
 		damageImmun[damage_type] = i
-	
+
+func set_damage_resis(damage_types: Array, v):
+	for damage_type in damage_types:
+		damageResis[damage_type] += v
+
 func process_damage(damage: Damage):
 	if damageImmun[damage.type]:
 		damage.baseAmount = 0
 		
 		return damage
 	damage.bonus *= (1 - damageResis[damage.type])
-	
 	return damage

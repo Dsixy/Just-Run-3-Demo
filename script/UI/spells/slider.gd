@@ -9,6 +9,8 @@ var value:
 	set(v):
 		_value = v
 		label.text = "{0}: {1}".format([attrName, _value])
+		if slider.value != v:
+			slider.value = v
 		changeS.emit(attr, v)
 
 var attr: String = ""

@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://de27rjknu53u"]
+
+[node name="BaseSummon" type="Node2D"]

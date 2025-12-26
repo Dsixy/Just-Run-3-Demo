@@ -1,7 +1,7 @@
 extends Potion
 
 func activate(p: BaseCharacter):
-	p.state.modify_state("HP", 50)
+	p.attrManager.set_state_value("HP", 50)
 	delete()
 
 func delete():

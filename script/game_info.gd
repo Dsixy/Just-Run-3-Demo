@@ -15,7 +15,8 @@ var buffDict = {
 var enemyDict = {
 	"DuangDuangWorm": preload("res://scene/enemy/duang_duang_worm.tscn"),
 	"WaterElemental": preload("res://scene/enemy/water_elemental.tscn"),
-	"Bloverfly": preload("res://scene/enemy/bloverfly.tscn")
+	"Bloverfly": preload("res://scene/enemy/bloverfly.tscn"),
+	"SongberryWooking": preload("res://scene/enemy/boss/songberry_woo_king.tscn")
 }
 
 
@@ -29,24 +30,39 @@ var souvenirList = {
 }
 
 var spellList = [
-	FireballSpell,
-	SnowballSpell,
-	LinearTrajSpell,
-	OrbitWrapperSpell,
-	DoubleCastSpell,
-	StoneConeSpell,
-	SerpentineTrajSpell,
-	DualCastSpell,
-	BounceTrajSpell,
-	OrbitTrajSpell,
+	FireballSpell,SnowballSpell,StoneConeSpell,
+	LinearTrajSpell,SerpentineTrajSpell,BounceTrajSpell,OrbitWrapperSpell,
+	PierceProjModSpell,
+	DoubleCastSpell,DualCastSpell,
+	QuickCastSpell, AdvancedQuickCastSpell, BarrageSpell
 ]
 
+class RoomSetManager:
+	var currentIdx: int = -1
+	var roomSetArr: Array
+	func _init():
+		self.roomSetArr = [
+			#{"type": "Grass", "has_boss": false},
+			#{"type": "Grass", "has_boss": false},
+			{"type": "Grass", "has_boss": true},
+		]
+	func next():
+		currentIdx += 1
+		
+		if currentIdx >= len(roomSetArr):
+			return null
+		return roomSetArr[self.currentIdx]
+		
+var roomSetManager: RoomSetManager = RoomSetManager.new()
 	
 func _ready():
 	add_child(mouseArea)
 	
 func add_node(node: Node):
 	mainscene.itemNode.add_child(node)
+	
+func add_UI_node(UINode: Control):
+	mainscene.UILayer.add_child(UINode)
 	
 func allocate_timer(time: float) -> Timer:
 	var timer = Timer.new()

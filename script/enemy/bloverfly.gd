@@ -1,6 +1,6 @@
 extends BaseEnemy
 
-@onready var waterballScene = preload("res://scene/item/fireball.tscn")
+@onready var waterballScene = preload("res://scene/item/projectile/fireball.tscn")
 	
 var attackCoolDownInterval: float = 2.0
 var canAttack: bool = true
@@ -13,7 +13,7 @@ class MoveState extends State:
 	func physics_process(delta):
 		if self.stateOwner.target:
 			var dir = self.get_target_relative_position().normalized()
-			self.stateOwner.velocity = dir * self.stateOwner.attr.speed * self.dirScale
+			self.stateOwner.velocity = dir * self.stateOwner.attrManager.speed.final_value() * self.dirScale
 		else:
 			self.stateOwner.velocity = Vector2.ZERO
 		self.stateOwner.move_and_slide()
@@ -56,15 +56,16 @@ class WanderState extends State:
 		
 	func physics_process(delta):
 		if self.stateOwner.target:
-			self.stateOwner.velocity = dir * self.stateOwner.attr.speed
+			self.stateOwner.velocity = dir * self.stateOwner.attrManager.speed.final_value()
 		else:
 			self.stateOwner.velocity = Vector2.ZERO
 		self.stateOwner.move_and_slide()
 	
 func _init():
 	super._init()
-	self.attr.maxHP = 150
-	self.state.HP = 150
+	self.attrManager = AttrManager.new({
+		"maxHP": 150
+	})
 	
 func set_target(t: Node2D):
 	self.target = t

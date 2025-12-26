@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dxkh2dommufmo"]
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://dxkh2dommufmo"]
 
 [ext_resource type="Texture2D" uid="uid://ds4un72kdgmn" path="res://resources/img/tileset.png" id="1_c7jm6"]
 
@@ -30,10 +30,27 @@ texture_region_size = Vector2i(64, 128)
 2:0/0/physics_layer_0/angular_velocity = 0.0
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e3pnv"]
+resource_name = "box"
+texture = ExtResource("1_c7jm6")
+texture_region_size = Vector2i(64, 128)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 32)
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+2:0/0/custom_data_0 = true
+2:0/0/custom_data_1 = 10
+
 [resource]
 tile_size = Vector2i(64, 64)
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
+custom_data_layer_0/name = "destroyable"
+custom_data_layer_0/type = 1
+custom_data_layer_1/name = "HP"
+custom_data_layer_1/type = 2
 sources/1 = SubResource("TileSetAtlasSource_tansn")
 sources/2 = SubResource("TileSetAtlasSource_tj4q7")
 sources/0 = SubResource("TileSetAtlasSource_xl0a5")
+sources/3 = SubResource("TileSetAtlasSource_e3pnv")

@@ -11,7 +11,7 @@ var treeNode: SpellTreeNode
 var params := {}
 var inputFields := {}
 
-func override(spell_class):
+func init_by_spell_class(spell_class):
 	var idx: int = 1
 	self.spellClass = spell_class
 	self.treeNode = SpellTreeNode.new(self.spellClass)
@@ -35,13 +35,19 @@ func override(spell_class):
 				add_child(subUI)
 				# name, min, max, step
 				subUI.set_properties(key, boardParam[0], boardParam[1], boardParam[2], boardParam[3])
-				params[key] = boardParam[1]
+				if key in params:
+					subUI.value = params[key]
+				else:
+					params[key] = boardParam[1]
 			TYPE_FLOAT:
 				subUI = slideScene.instantiate()
 				add_child(subUI)
 				# name, min, max, step
 				subUI.set_properties(key, boardParam[0], boardParam[1], boardParam[2], boardParam[3])
-				params[key] = boardParam[1]
+				if key in params:
+					subUI.value = params[key]
+				else:
+					params[key] = boardParam[1]
 			TYPE_STRING:
 				print("string")
 			_:
@@ -79,3 +85,13 @@ func update_info():
 	
 	self.manaLabel.text = "Mana Cost:\n{0}".format([arr[0]])
 	self.castTimeLabel.text = "Cast Time:\n{0}s".format([arr[1]])
+
+func export_data():
+	return {
+		"spellClass": spellClass,
+		"params": params
+	}
+
+func import_data(data: Dictionary):
+	self.params = data["params"]
+	self.init_by_spell_class(data["spellClass"])

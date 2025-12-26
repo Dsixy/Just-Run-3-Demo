@@ -10,6 +10,9 @@ func _ready():
 	pass
 	#set_points(Vector2(0, 0), Vector2(0, 1024))
 
+func take_damage(world_pos: Vector2, damage: Damage) -> void:
+	return 
+	
 func set_points(from_pos: Vector2, to_pos: Vector2):
 	if from_pos.x != to_pos.x and from_pos.y != to_pos.y:
 		push_warning("Road should be horizontal or vertical only.")

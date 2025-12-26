@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0b2dudyyg5qq"]
+
+[ext_resource type="PackedScene" uid="uid://dy28t44oiaynx" path="res://scene/enemy/base_enemy.tscn" id="1_delrl"]
+[ext_resource type="Script" path="res://script/enemy/boss/songberry_woo_king.gd" id="2_7v462"]
+
+[sub_resource type="Gradient" id="Gradient_224u4"]
+colors = PackedColorArray(0, 0.148241, 0, 1, 0.313726, 0.627451, 0.0666667, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xcqbs"]
+gradient = SubResource("Gradient_224u4")
+width = 256
+height = 256
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0.0128205)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sko0x"]
+size = Vector2(256, 256)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ckgv7"]
+radius = 120.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_flsbx"]
+size = Vector2(272, 272)
+
+[node name="SongberryWooKing" instance=ExtResource("1_delrl")]
+script = ExtResource("2_7v462")
+enemyName = "松丘树王"
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphic" index="0"]
+texture = SubResource("GradientTexture2D_xcqbs")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("RectangleShape2D_sko0x")
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_ckgv7")
+
+[node name="Hitbox" type="Area2D" parent="." index="6"]
+collision_layer = 0
+collision_mask = 3
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("RectangleShape2D_flsbx")
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

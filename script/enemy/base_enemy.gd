@@ -1,33 +1,8 @@
 class_name BaseEnemy extends CharacterBody2D
 
 @export var enemyName: String
-class EnemyAttr:
-	var damageMultiplier: Dictionary = {
-		"Fire": 1.0,
-		"Frost": 1.0,
-		"Piercing": 1.0,
-		"Blunt": 1.0,
-		"Slashing": 1.0,
-		"Force": 1.0,
-		"Psychic": 1.0,
-		"Poison": 1.0,
-		"Lightning": 1.0
-	}
-	
-	var speed: int = 200
-	var maxHP: int = 100
-	
-class EnemyState:
-	var HP: float = 0
-	
-	func _init(attr: EnemyAttr = null):
-		if attr:
-			HP = attr.maxHP
-		else:
-			HP = 150
-		
-var attr: EnemyAttr
-var state: EnemyState
+var attrManager: AttrManager
+
 var currentState: State
 @onready var buffManager = $BuffManager
 
@@ -38,11 +13,16 @@ var target: Node2D
 var physicScale: float = 1
 var processScale: float = 1
 
+var isBoss: bool = false
+
 signal deathS(node: BaseEnemy)
+signal HPChangeS
 
 func _init():
-	self.attr = EnemyAttr.new()
-	self.state = EnemyState.new(self.attr)
+	self.attrManager = AttrManager.new({
+		"maxHP": 200,
+		"speed": 250
+	})
 	
 func _physics_process(delta):
 	if currentState and physicScale > 0.1:
@@ -65,13 +45,19 @@ func activate():
 func take_damage(damage: Damage):
 	damage = self.buffManager.process_damage(damage)
 	damage = self.damageScaleManager.process_damage(damage)
-	var final_damage_amount = damage.finalDamage * self.attr.damageMultiplier[damage.type]
+	var final_damage_amount = damage.finalDamage
 	FightInfoManager.show_damage_label(damage, global_position + Vector2.UP * 50)
-	self.state.HP -= final_damage_amount
+	self.attrManager.set_state_value("HP", -final_damage_amount)
+	HPChangeS.emit()
 	
-	if self.state.HP <= 0:
+	if self.attrManager.HP <= 0:
 		self.death()
 		
+func heal(v: int):
+	self.attrManager.set_state_value("HP", v)
+	FightInfoManager.show_value_label(v, global_position + Vector2.UP * 50, Color8(100, 255, 100))
+	HPChangeS.emit()
+	
 func death():
 	deathS.emit(self)
 	queue_free()

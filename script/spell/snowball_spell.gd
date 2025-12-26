@@ -15,7 +15,7 @@ static var boardParams = {
 	"modifier3": ["投射物修饰【3】", modifierFilter],
 }
 
-const snowballScene: PackedScene = preload("res://scene/item/snowball.tscn")
+const snowballScene: PackedScene = preload("res://scene/item/projectile/snowball.tscn")
 var spellTree: SpellTreeNode
 var subSpells: Array
 var trajSpell: BaseSpell
@@ -44,7 +44,7 @@ func apply(attr_dict: Dictionary):
 	
 	var damage = Damage.new(
 		int(calculate_damage()),
-		0,
+		attr_dict["player_attr_info"].damageBonus["Frost"],
 		attr_dict["player_attr_info"].critRate,
 		attr_dict["player_attr_info"].critDamage,
 		"Frost"
@@ -71,7 +71,7 @@ func apply(attr_dict: Dictionary):
 		self.modifier3.apply(attr_dict)
 		
 func calculate_damage() -> float:
-	return 10 + 0.3 * self.attrDict["player_attr_info"].spellPower
+	return 10 + 0.3 * self.attrDict["player_attr_info"].spellPower.final_value()
 	
 func compute_cost_and_time():
 	var cost := 5

@@ -1,0 +1,308 @@
+[gd_scene load_steps=6 format=3 uid="uid://cad1e1k7qrnc6"]
+
+[ext_resource type="Script" path="res://script/UI/attr_board.gd" id="1_ttg5b"]
+
+[sub_resource type="Gradient" id="Gradient_r73rg"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m5qkg"]
+gradient = SubResource("Gradient_r73rg")
+
+[sub_resource type="Gradient" id="Gradient_mssb8"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aup73"]
+gradient = SubResource("Gradient_mssb8")
+fill_to = Vector2(0, 1)
+
+[node name="AttrBoard" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -314.5
+offset_top = -124.0
+offset_right = 314.5
+offset_bottom = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ttg5b")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HP" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HP"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/HP"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="MP" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MP"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_aup73")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MP"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "速度：250（+150）"
+
+[node name="MaxHP" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MaxHP"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MaxHP"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="MaxMP" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MaxMP"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/MaxMP"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="Speed" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Speed"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="SpellPower" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/SpellPower"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/SpellPower"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="Inspiration" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Inspiration"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Inspiration"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="CritRate" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/CritRate"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/CritRate"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="CritDamage" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/CritDamage"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/CritDamage"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="FireDamageBonus" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/FireDamageBonus"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/FireDamageBonus"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="FrostDamageBonus" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/FrostDamageBonus"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/FrostDamageBonus"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="BluntDamageBonus" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/BluntDamageBonus"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/BluntDamageBonus"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="PiercingDamageBonus" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PiercingDamageBonus"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PiercingDamageBonus"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="PoisonDamageBonus" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PoisonDamageBonus"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PoisonDamageBonus"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="ForceDamageBonus" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ForceDamageBonus"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/ForceDamageBonus"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="LightningDamageBonus" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/LightningDamageBonus"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/LightningDamageBonus"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="PsychicDamageBonus" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PsychicDamageBonus"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PsychicDamageBonus"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="SlashDamageBonus" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/SlashDamageBonus"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_m5qkg")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2/SlashDamageBonus"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "法术强度：100（+700）"
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "关闭"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

@@ -7,7 +7,7 @@ var speed: int
 
 func _ready():
 	self.timer = 0
-	self.duration = 1.8
+	self.duration = 1.0
 	_on_buff_applied()
 	
 func stash():
@@ -19,8 +19,7 @@ func _process(delta):
 		remove()
 
 func _on_buff_applied():
-	self.extraSpeed = self.buffOwner.attr.speed * 0.6
-	self.buffOwner.attr.speed += self.extraSpeed
+	self.buffOwner.attrManager.speed.modify_extra_value(1.0)
 	
 func _on_buff_removed():
-	self.buffOwner.attr.speed -= self.extraSpeed
+	self.buffOwner.attrManager.speed.modify_extra_value(-1.0)

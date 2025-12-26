@@ -21,12 +21,12 @@ func set_state_owner(p: BaseCharacter):
 	update_info()
 	
 func update_info():
-	HPBar.max_value = stateOwner.attr.maxHP
-	HPBar.value = stateOwner.state.HP
-	HPBarLabel.text = "{0}/{1}".format([stateOwner.state.HP, stateOwner.attr.maxHP])
-	MPBar.max_value = stateOwner.attr.maxMP
-	MPBar.value = stateOwner.state.MP
-	MPBarLabel.text = "{0}/{1}".format([stateOwner.state.MP, stateOwner.attr.maxMP])
+	HPBar.max_value = stateOwner.attrManager.maxHP.final_value()
+	HPBar.value = stateOwner.attrManager.HP
+	HPBarLabel.text = "{0}/{1}".format([stateOwner.attrManager.HP, stateOwner.attrManager.maxHP.final_value()])
+	MPBar.max_value = stateOwner.attrManager.maxMP.final_value()
+	MPBar.value = stateOwner.attrManager.MP
+	MPBarLabel.text = "{0}/{1}".format([stateOwner.attrManager.MP, stateOwner.attrManager.maxMP.final_value()])
 	couponLabel.text = str(self.stateOwner.couponManager.couponValue)
 	
 	for icon in self.spellIconList:

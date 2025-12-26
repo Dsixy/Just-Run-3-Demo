@@ -11,7 +11,7 @@ script = ExtResource("1_yvciy")
 tile_set = ExtResource("3_ky1a4")
 format = 2
 
-[node name="Wall" type="TileMap" parent="."]
+[node name="Wall" type="TileMap" parent="." groups=["wall"]]
 z_index = 1
 tile_set = ExtResource("1_ncwhf")
 format = 2

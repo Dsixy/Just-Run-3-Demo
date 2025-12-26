@@ -17,7 +17,7 @@ static var boardParams = {
 	"modifier3": ["投射物修饰【3】", modifierFilter],
 }
 
-const stoneConeScene: PackedScene = preload("res://scene/item/stone_cone.tscn")
+const stoneConeScene: PackedScene = preload("res://scene/item/projectile/stone_cone.tscn")
 var spellTree: SpellTreeNode
 var subSpells: Array
 var trajSpell: BaseSpell
@@ -46,7 +46,7 @@ func apply(attr_dict: Dictionary):
 	
 	var damage = Damage.new(
 		int(calculate_damage()),
-		0,
+		attr_dict["player_attr_info"].damageBonus["Piercing"],
 		attr_dict["player_attr_info"].critRate,
 		attr_dict["player_attr_info"].critDamage,
 		"Piercing"
